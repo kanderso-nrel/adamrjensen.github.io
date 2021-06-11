@@ -218,21 +218,6 @@
    Google Summer of Code
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sphinx">
-   Sphinx
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#my-reasons-for-using-ebp-sphinx">
-   My reasons for using EBP + Sphinx
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#blog-starter-template">
-   Blog Starter Template
-  </a>
- </li>
 </ul>
 
 </nav>
@@ -255,63 +240,30 @@
               <div>
                  <div class="section" id="pvlib-python-a-one-stop-source-for-solar-resource-data">
 <h1>pvlib-python - a one stop source for solar resource data<a class="headerlink" href="#pvlib-python-a-one-stop-source-for-solar-resource-data" title="Permalink to this headline">¶</a></h1>
-<p>This title at least, represents the aim of my <a class="reference external" href="https://summerofcode.withgoogle.com/about/">Google Summer of Code (GSoC)</a> project that I will be copmleting over the next two months. In short, I’ll be extending pvlib python’s current iotools functionalities to include harmonized functions for allowing seamless access to all major open-source solar resource databases.</p>
-<p>And why would I do that you ask? Well first of all I am a bit of a solar geek, but more importantly, solar resource data is fundamental to the deployment of new solar projects, and sound research.</p>
+<p>This title at least, represents the aim of my <a class="reference external" href="https://summerofcode.withgoogle.com/about/">Google Summer of Code (GSoC)</a> project that I will be copmleting over the next two months. In short, I’ll be extending pvlib python’s current iotools functionalities to allow seamless access to all major open-source solar resource databases.</p>
+<p>And why would I do that you ask? Well first of all I am a bit of a solar geek, but more importantly, solar resource data is fundamental to the benchmarking solar energy systems, financial risk assessment, of large-scale solar projects, and sound research.</p>
 <p>Information of the solar resource is perhaps the most important input when designing and assessing solar energy systems, which is at the core of the open-source library pvlib python. For this reason, pvlib currently has capabilities for reading a number of different file formats and supports access to sources for solar resource data, including PVGIS and NREL’s PSM3. However, the library currently only supports direct access to a few of the many available sources and only covers a limited area, primarily focusing on North America and Europe.</p>
 <div class="section" id="data-sources">
 <h2>Data sources<a class="headerlink" href="#data-sources" title="Permalink to this headline">¶</a></h2>
+<p>I’ll be developing functions for accessing data from the following data sources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bsrn.awi.de/">Baseline Surface Radiation Network (BSRN)</a></p></li>
+<li><p><a class="reference external" href="https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5">ERA5 from ECMWF</a></p></li>
+<li><p><a class="reference external" href="https://gmao.gsfc.nasa.gov/reanalysis/MERRA-2/">MERRA2 from NASA</a></p></li>
+<li><p><a class="reference external" href="https://ec.europa.eu/jrc/en/PVGIS/tools/hourly-radiation">PVIGS hourly data</a></p></li>
+<li><p><a class="reference external" href="http://www.soda-pro.com/web-services/radiation/cams-mcclear">CAMS McClear</a></p></li>
+<li><p><a class="reference external" href="http://www.soda-pro.com/web-services/radiation/cams-radiation-service/info">CAMS radiation</a></p></li>
+<li><p><a class="reference external" href="http://climate.onebuilding.org/">Climate One Building</a></p></li>
+</ul>
+<p>Each of the above datasets have their own streths, and differs by geographical coverage, time resoultion, and accuracy.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can already check out some of the existing pvlib functions for retrieving data. For example, satellite derived solar data from <a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/generated/pvlib.iotools.get_psm3.html#pvlib.iotools.get_psm3">NRELS’ National Solar Radiation Database (NSRDB)</a> and ground measurement data from the <a class="reference external" href="http://solardat.uoregon.edu/SolarData.html">Solar Radiation Monitoring Laboratory (SRML) monitoring stations</a>.</p>
+</div>
 </div>
 <div class="section" id="google-summer-of-code">
 <h2>Google Summer of Code<a class="headerlink" href="#google-summer-of-code" title="Permalink to this headline">¶</a></h2>
 <p>If you’re wondering what exactly Google Summer of Code is, then I can promise I’ll do a post on that in a weeks time, when I know more myself. For now you can read the official project abstract <a class="reference external" href="https://summerofcode.withgoogle.com/projects/#6071460558274560">here</a>.</p>
-<p>Jupyterbook is a library that allows you to create your very own online textbook built up from either markdown files or Jupyter Notebooks. I had a lot of fun playing around with Jupyterbook over a weekend, and started to dream of the possibility to use the EBP tools to build a blog.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>I was excited enough about the idea of building a blog with Jupyterbook that I raised <a class="reference external" href="https://github.com/executablebooks/jupyter-book/issues/900">this issue here</a> (and it’s still 1 of the project’s top 👍 issue!)</p>
-</div>
-<p>You can explore the entire ecosystem of tools under the EBP on this <a class="reference external" href="https://executablebooks.org/en/latest/tools.html">page</a>.</p>
-</div>
-<div class="section" id="sphinx">
-<h2>Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this headline">¶</a></h2>
-<p>Sphinx is a Python-based documentation generation tool that efficiently indexes and keeps track of content files. Amongst Sphinx’s many extensions is one called <a class="reference external" href="https://ablog.readthedocs.io/">Ablog</a>. Ablog uses Sphinx as an engine to convert my content files into html/css files that make up this site.</p>
-<div class="tip admonition">
-<p class="admonition-title">Alternative blogging tool - <a class="reference external" href="https://github.com/fastai/fastpages">Fastpages</a></p>
-<p>You might also want to consider Fastpages as an alternative notebook-focused blogging library. It comes from the excellent fastai family of tools.</p>
-<p>The only reason why I decided to not go with Fastpages was that I had a preference of using Sphinx(Python) over Jekyll(Ruby). I’ve read in the <a class="reference external" href="https://forums.fast.ai/t/fastpages-github-pages-blog-using-nbdev/62828/273">fastai forums</a> that a new version powered by Hugo is planned, and would be very interested to try that once it’s out!</p>
-</div>
-</div>
-<div class="section" id="my-reasons-for-using-ebp-sphinx">
-<h2>My reasons for using EBP + Sphinx<a class="headerlink" href="#my-reasons-for-using-ebp-sphinx" title="Permalink to this headline">¶</a></h2>
-<p>I am familiar with Jupyter and Sphinx because I use these tools at work
-: My goal for blogging is to practise my writing, so it’s important to me that the tooling doesn’t get too in the way.</p>
-<p>Jupyter notebooks are 1st class citizens
-: Jupyter notebooks are notoriously finicky to convert into html/css. The tools from EBP essentially take away a lot of the usual friction you would encounter and make it easy to include other features such as</p>
-<p>I like the aesthetics of the <a class="reference external" href="https://pydata-sphinx-theme.readthedocs.io/en/latest/index.html">Pydata theme</a>
-: If, like me, you spend a lot of time reading the <a class="reference external" href="https://pandas.pydata.org/docs/">pandas documentation</a>, you probably would find the look and feel of this blog comfortingly familiar. That’s because the blog is using the exact same theme! I’ve grown to like the design choices of this theme, and applying it to my blog was a no-brainer.</p>
-<p>I was inspired by <a class="reference external" href="https://predictablynoisy.com/posts/2020/sphinx-blogging/">Chris Holdgraf’s blogpost starter template</a>
-: Chris is one the core members in EBP. In this blogpost, Chris explains how he rewrote his blog using EBP + Sphinx and the source code and helpful links. Thanks to this blogpost, things were simple enough for me to start working on my own. My blog and the template I will share in the next section is pretty much Chris’s starter code + a few modifications from me.</p>
-</div>
-<div class="section" id="blog-starter-template">
-<h2><a class="reference external" href="https://github.com/ddanieltan/blog_ebp_sphinx_starter">Blog Starter Template</a><a class="headerlink" href="#blog-starter-template" title="Permalink to this headline">¶</a></h2>
-<div class="warning admonition">
-<p class="admonition-title">Caveat</p>
-<p>I am super happy to share my template + explain my approach to get my blog up and running.
-But, I also want to state up-front that I have <strong>very little experience with front-end programming</strong>. So more than likely, this next section contains some convuluted/hacky/incorrect/inefficient code.</p>
-<p>(If you find any issue, <a class="reference internal" href="../../about/"><span class="doc std std-doc">drop me an email</span></a> to explain what I’m doing wrong and I’ll do my best to correct it.)</p>
-</div>
-<p>I have created a simple blog starter template at <a class="reference external" href="https://github.com/ddanieltan/blog_ebp_sphinx_starter">https://github.com/ddanieltan/blog_ebp_sphinx_starter</a>.
-These are the files in the repo:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ddanieltan</span><span class="o">/</span><span class="n">blog_ebp_sphinx_starter</span><span class="o">.</span><span class="n">git</span>
-</pre></div>
-</div>
-<p>When I’m crafting a new post, I typically do so using <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code>. If I’m crafting a new post using a jupyter notebook, I can actually run and execute any code block that appears in my post. And, I have full control over whether I want to display each code cell’s inputs, outputs or both. You can see the full flexibility of options at <a class="reference external" href="https://jupyterbook.org/file-types/notebooks.html">https://jupyterbook.org/file-types/notebooks.html</a>.</p>
-<p>When it comes to exploring the full list of configurable options we will hit 1 of the downsides of my approach to creating a blog. As we are are using separate libraries, we don’t have a single centralized place that records all the configurable options in this project. So for any existing of new configuration you want to implement, you will need to spend some time exploring the following resoures:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html">Sphinx documentation</a></p></li>
-<li><p><a class="reference external" href="https://ablog.readthedocs.io/">Ablog documentation</a></p></li>
-<li><p><a class="reference external" href="https://pydata-sphinx-theme.readthedocs.io/en/latest/index.html">Pydata Theme documentation</a></p></li>
-<li><p><a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/using/intro.html">MyST parser documentation</a></p></li>
-</ul>
 </div>
 </div>
 
