@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://adamrjensen.com/</id>
+  <title>Adam R. Jensen's Blog</title>
+  <updated>2021-06-12T02:31:20.947759+00:00</updated>
+  <link href="http://adamrjensen.com/"/>
+  <link href="http://adamrjensen.com/blog/atom.xml" rel="self"/>
+  <generator uri="https://ablog.readthedocs.org/" version="0.10.19">ABlog</generator>
+  <entry>
+    <id>http://adamrjensen.com/posts/gsoc_project_intro/</id>
+    <title>pvlib - a one stop source for solar resource data</title>
+    <updated>2021-06-10T00:00:00+00:00</updated>
+    <author>
+      <name>Adam R. Jensen</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;img alt="gsoc and pvlib logo" src="../_images/gsoc_at_pvlib.png" /&gt;&lt;/p&gt;
+</content>
+    <link href="http://adamrjensen.com/posts/gsoc_project_intro/" rel="alternate"/>
+    <summary>gsoc and pvlib logo</summary>
+    <category term="pvlib" label="pvlib"/>
+    <category term="solar" label="solar"/>
+    <category term="openscience" label="open science"/>
+    <category term="gsoc" label="gsoc"/>
+    <published>2021-06-10T00:00:00+00:00</published>
+  </entry>
+</feed>
