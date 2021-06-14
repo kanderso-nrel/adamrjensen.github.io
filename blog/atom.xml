@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://adamrjensen.com/</id>
   <title>Adam R. Jensen's Blog</title>
-  <updated>2021-06-12T03:49:54.345270+00:00</updated>
+  <updated>2021-06-14T02:38:44.121025+00:00</updated>
   <link href="http://adamrjensen.com/"/>
   <link href="http://adamrjensen.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.19">ABlog</generator>
@@ -10,10 +10,10 @@
     <id>http://adamrjensen.com/posts/remove_data_islands/</id>
     <title>Using gropuby to remove 'data islands'</title>
     <updated>2021-06-09T00:00:00+00:00</updated>
-    <content type="html">&lt;p&gt;As anyone who has worked with measurement data knows, there will always be some missing and errornous data, hence quality checking is an essential step. However, quality control methods remove data and don’t always detect everything, often resulting in many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove data islands, based on a threshold minimum period length.&lt;/p&gt;
+    <content type="html">&lt;p&gt;As anyone who has worked with measurement data knows, there will always be some amount of missing and errornous data, hence quality control is an essential step. However, quality control methods remove data and do not detect everything, often resulting in many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove data islands, based on by specifying a minimum period length.&lt;/p&gt;
 </content>
     <link href="http://adamrjensen.com/posts/remove_data_islands/" rel="alternate"/>
-    <summary>As anyone who has worked with measurement data knows, there will always be some missing and errornous data, hence quality checking is an essential step. However, quality control methods remove data and don’t always detect everything, often resulting in many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove data islands, based on a threshold minimum period length.</summary>
+    <summary>As anyone who has worked with measurement data knows, there will always be some amount of missing and errornous data, hence quality control is an essential step. However, quality control methods remove data and do not detect everything, often resulting in many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove data islands, based on by specifying a minimum period length.</summary>
     <category term="jupyter" label="jupyter"/>
     <published>2021-06-09T00:00:00+00:00</published>
   </entry>
