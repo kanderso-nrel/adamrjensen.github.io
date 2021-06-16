@@ -285,9 +285,9 @@ The good thing is that there actually is a lot of very good data out there, free
 <li><p><a class="reference external" href="https://bsrn.awi.de/">Baseline Surface Radiation Network (BSRN)</a></p></li>
 <li><p><a class="reference external" href="https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5">ERA5 from ECMWF</a></p></li>
 <li><p><a class="reference external" href="https://gmao.gsfc.nasa.gov/reanalysis/MERRA-2/">MERRA2 from NASA</a></p></li>
-<li><p><a class="reference external" href="https://ec.europa.eu/jrc/en/PVGIS/tools/hourly-radiation">PVIGS hourly data</a></p></li>
+<li><p><a class="reference external" href="https://ec.europa.eu/jrc/en/PVGIS/tools/hourly-radiation">PVGIS hourly data</a></p></li>
 <li><p><a class="reference external" href="http://www.soda-pro.com/web-services/radiation/cams-mcclear">CAMS McClear</a></p></li>
-<li><p><a class="reference external" href="http://www.soda-pro.com/web-services/radiation/cams-radiation-service/info">CAMS radiation</a></p></li>
+<li><p><a class="reference external" href="http://www.soda-pro.com/web-services/radiation/cams-radiation-service/info">CAMS Radiation</a></p></li>
 <li><p><a class="reference external" href="http://climate.onebuilding.org/">Climate One Building</a></p></li>
 </ul>
 <p>Each of the above datasets have their own strengths and differs by geographical coverage, time resolution, and accuracy. If this sounds a bit overwhelming, fret not; this will be the topic of a later blog post.</p>
@@ -299,15 +299,15 @@ The good thing is that there actually is a lot of very good data out there, free
 </div>
 <div class="section" id="google-summer-of-code">
 <h2>Google Summer of Code<a class="headerlink" href="#google-summer-of-code" title="Permalink to this headline">¶</a></h2>
-<p>You might be wondering at this point what Google has to do with all this and you’d be right to do so. Google is not directly involved with each project, but rather is the facilitator and sponsor of Google Summer of Code (GSoC) - a global program that aims at getting students writing code and taking active part in one of the many open-source communities.</p>
-<p>During the 10 week program, the student is paired with a mentor from one of the pre-qualified organizations, who guides the student through the process. And this is where <a class="reference external" href="https://github.com/kanderso-nrel">Kevin</a> comes into the picture. Kevin is one of the core pvlib developers, and each week volunteers a few hours of his time where I get to pick his brain. He is truly a phenomenal guy, and he’s the reason why this project exists.</p>
-<p>If you’re interested, you can read my official GSoC project abstract <a class="reference external" href="https://summerofcode.withgoogle.com/projects/#6071460558274560">here</a>.</p>
+<p>You might be wondering at this point what Google has to do with all this and you’d be right to do so. Google is not directly involved with the project, but rather is the facilitator and sponsor of Google Summer of Code (GSoC) - a global program that aims at getting students writing code and taking active part in the open-source community.</p>
+<p>During the 10 week program, students are paired with a mentor from a pre-qualified open-source organization, who guides the student through a specific project. This is where <a class="reference external" href="https://github.com/kanderso-nrel">Kevin Anderson</a> comes into the picture. Kevin is one of the core pvlib developers, and each week volunteers a few hours of his time where I get to pick his brain. He is truly a phenomenal guy, and he’s really the reason why this project exists.</p>
+<p>If you’re interested, you can find my official GSoC project abstract <a class="reference external" href="https://summerofcode.withgoogle.com/projects/#6071460558274560">here</a>.</p>
 </div>
 <div class="section" id="whats-next">
 <h2>What’s next?<a class="headerlink" href="#whats-next" title="Permalink to this headline">¶</a></h2>
 <p>I just completed adding <a class="reference external" href="https://github.com/pvlib/pvlib-python/pull/1175">CAMS support to pvlib python</a>. CAMS provides satellite-derived solar radiation for Europe and Africa. But not only that, CAMS also lets you retrieve McClear clear-sky data for anywhere in the world. Hint: McClear is based on actual aerosol data and probably provides the best clear-sky data you will ever use.</p>
 <p>Now that this has been completed, I have moved on to writing tests for the functions I’ve written for retrieving and reading hourly data from PVGIS.</p>
-<p>So stay tuned for more news on how you can easily get your hands on solar radiation data, and leave a comment below if you have any questions in getting started with retrieving CAMS data!</p>
+<p>So stay tuned for more news on how you can easily get your hands on solar radiation data, and leave a comment below if you have any questions in getting started with retrieving CAMS data.</p>
 </div>
 </div>
 
