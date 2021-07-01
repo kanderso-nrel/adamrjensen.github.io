@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Using GroupBy to remove ‘data islands’ &#8212; Adam R. Jensen  documentation</title>
+    <title>Using GroupBy to remove ‘data islands’ &#8212; Predictably Sunny  documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -46,7 +46,7 @@
   rel="alternate"
   type="application/atom+xml"
   href="../../blog/atom.xml"
-  title="Adam R. Jensen's Blog"
+  title="Predictably Sunny"
 />
  
 <style type="text/css">
@@ -86,7 +86,7 @@
     
     
 <a class="navbar-brand" href="../../">
-<p class="title">Adam R. Jensen</p>
+<p class="title">Predictably Sunny</p>
 </a>
 
     
@@ -221,9 +221,19 @@
               
               <div class="toc-item">
                 
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-2-removing-data-islands">
+   Part 2 - Removing Data Islands
+  </a>
+ </li>
+</ul>
+
 </nav>
               </div>
               
@@ -244,8 +254,11 @@
               <div>
                  <div class="section" id="using-groupby-to-remove-data-islands">
 <h1>Using GroupBy to remove ‘data islands’<a class="headerlink" href="#using-groupby-to-remove-data-islands" title="Permalink to this headline">¶</a></h1>
-<p>As anyone who has worked with measurement data knows, there will always be some amount of missing and errornous data, hence quality control is an essential step. However, quality control methods remove data and do not detect everything, often resulting in many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove data islands, based on by specifying a minimum period length.</p>
+<p>As anyone who has worked with measurement data knows, there is always some amount of missing and errornous data, hence quality control is an essential step. However, automatic quality control methods remove additional data and are imperfect, often resulting in the new data set containing many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove data islands, based on by specifying a minimum period length.</p>
 <p>Switch around part 1 and 2.</p>
+<ul class="simple">
+<li><p>Have part 2 build on part 1</p></li>
+</ul>
 <p>Import necessary libraries:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -256,6 +269,8 @@
 </div>
 </div>
 </div>
+<div class="section" id="part-2-removing-data-islands">
+<h2>Part 2 - Removing Data Islands<a class="headerlink" href="#part-2-removing-data-islands" title="Permalink to this headline">¶</a></h2>
 <p>Create a dataframe with fictional solar irradiance data with multiple missing entires:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -287,7 +302,7 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../../_images/remove_data_islands_5_1.png" src="../../_images/remove_data_islands_5_1.png" />
+<img alt="../../_images/remove_data_islands_20_1.png" src="../../_images/remove_data_islands_20_1.png" />
 </div>
 </div>
 <p>As it’s evident there are a lot of missing data around 11 am, and many short periods of data (data islands).</p>
@@ -309,7 +324,7 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../../_images/remove_data_islands_7_1.png" src="../../_images/remove_data_islands_7_1.png" />
+<img alt="../../_images/remove_data_islands_22_1.png" src="../../_images/remove_data_islands_22_1.png" />
 </div>
 </div>
 <p>The next step is then to determine whether a period should be removed or not. This is where the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> operation becomes extremely handy! We group/split the data into different periods based on the column <code class="docutils literal notranslate"><span class="pre">gap_start_stop_cumsum</span></code> and then for each period we determine how many entries it contains. For this we use the <code class="docutils literal notranslate"><span class="pre">transform</span></code> operation on the grouped periods, which returns a dataframe with the same indexes as the original dataframe. The new column, <code class="docutils literal notranslate"><span class="pre">group_count</span></code>, contains the period length for the period which each time step belongs to.</p>
@@ -339,11 +354,12 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../../_images/remove_data_islands_11_1.png" src="../../_images/remove_data_islands_11_1.png" />
+<img alt="../../_images/remove_data_islands_26_1.png" src="../../_images/remove_data_islands_26_1.png" />
 </div>
 </div>
 <p>It is clear now that all the short data periods have been removed and we are more confident in the validity of our dataset.</p>
 <p>Notice how the long period of data between the two gaps has not been removed, as the period is longer than the threshold.</p>
+</div>
 </div>
 
 <div class="section">
