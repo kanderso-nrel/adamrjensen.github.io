@@ -1,24 +1,24 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <id>http://adamrjensen.com/</id>
+  <id>http://predictablysunny.com/</id>
   <title>Adam R. Jensen's Blog</title>
-  <updated>2021-06-18T04:17:12.923692+00:00</updated>
-  <link href="http://adamrjensen.com/"/>
-  <link href="http://adamrjensen.com/blog/atom.xml" rel="self"/>
+  <updated>2021-07-01T16:57:47.061828+00:00</updated>
+  <link href="http://predictablysunny.com/"/>
+  <link href="http://predictablysunny.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.19">ABlog</generator>
   <entry>
-    <id>http://adamrjensen.com/posts/remove_data_islands/</id>
+    <id>http://predictablysunny.com/posts/remove_data_islands/</id>
     <title>Using gropuby to remove 'data islands'</title>
     <updated>2021-06-09T00:00:00+00:00</updated>
     <content type="html">&lt;p&gt;As anyone who has worked with measurement data knows, there will always be some amount of missing and errornous data, hence quality control is an essential step. However, quality control methods remove data and do not detect everything, often resulting in many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove data islands, based on by specifying a minimum period length.&lt;/p&gt;
 </content>
-    <link href="http://adamrjensen.com/posts/remove_data_islands/" rel="alternate"/>
+    <link href="http://predictablysunny.com/posts/remove_data_islands/" rel="alternate"/>
     <summary>As anyone who has worked with measurement data knows, there will always be some amount of missing and errornous data, hence quality control is an essential step. However, quality control methods remove data and do not detect everything, often resulting in many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove data islands, based on by specifying a minimum period length.</summary>
     <category term="jupyter" label="jupyter"/>
     <published>2021-06-09T00:00:00+00:00</published>
   </entry>
   <entry>
-    <id>http://adamrjensen.com/posts/gsoc_project_intro/</id>
+    <id>http://predictablysunny.com/posts/gsoc_project_intro/</id>
     <title>pvlib - a one stop source for solar resource data</title>
     <updated>2021-06-10T00:00:00+00:00</updated>
     <author>
@@ -27,7 +27,7 @@
     <content type="html">&lt;p&gt;This title at least represents the aim of my &lt;a class="reference external" href="https://summerofcode.withgoogle.com/about/"&gt;Google Summer of Code (GSoC)&lt;/a&gt; project that I will be completing during the next 10 weeks. In short, I’ll be extending &lt;a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/"&gt;pvlib python’s&lt;/a&gt; current iotools functionalities to provide users with easy and standardized access to all major open-source solar resource databases.
 &lt;img alt="gsoc and pvlib logo" src="../_images/gsoc_at_pvlib.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="http://adamrjensen.com/posts/gsoc_project_intro/" rel="alternate"/>
+    <link href="http://predictablysunny.com/posts/gsoc_project_intro/" rel="alternate"/>
     <summary>This title at least represents the aim of my Google Summer of Code (GSoC) project that I will be completing during the next 10 weeks. In short, I’ll be extending pvlib python’s current iotools functionalities to provide users with easy and standardized access to all major open-source solar resource databases.
 gsoc and pvlib logo</summary>
     <category term="pvlib" label="pvlib"/>
