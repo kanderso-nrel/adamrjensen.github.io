@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://predictablysunny.com/</id>
   <title>Predictably Sunny</title>
-  <updated>2021-07-01T21:09:09.611145+00:00</updated>
+  <updated>2021-07-02T20:15:03.163640+00:00</updated>
   <link href="http://predictablysunny.com/"/>
   <link href="http://predictablysunny.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.19">ABlog</generator>
@@ -26,10 +26,11 @@
     </author>
     <content type="html">&lt;p&gt;This title at least represents the aim of my &lt;a class="reference external" href="https://summerofcode.withgoogle.com/about/"&gt;Google Summer of Code (GSoC)&lt;/a&gt; project that I will be completing during the next 10 weeks. In short, I’ll be extending &lt;a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/"&gt;pvlib python’s&lt;/a&gt; current iotools functionalities to provide users with easy and standardized access to all major open-source solar resource databases.
 &lt;img alt="gsoc and pvlib logo" src="../_images/gsoc_at_pvlib.png" /&gt;&lt;/p&gt;
+&lt;img alt="gsoc and pvlib logo" src="../_images/gsoc_at_pvlib.png" /&gt;
 </content>
     <link href="http://predictablysunny.com/posts/gsoc_project_intro/" rel="alternate"/>
     <summary>This title at least represents the aim of my Google Summer of Code (GSoC) project that I will be completing during the next 10 weeks. In short, I’ll be extending pvlib python’s current iotools functionalities to provide users with easy and standardized access to all major open-source solar resource databases.
-gsoc and pvlib logo</summary>
+gsoc and pvlib logogsoc and pvlib logo</summary>
     <category term="pvlib" label="pvlib"/>
     <category term="solar" label="solar"/>
     <category term="openscience" label="open science"/>
