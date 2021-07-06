@@ -2,13 +2,13 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://predictablysunny.com/</id>
   <title>Predictably Sunny</title>
-  <updated>2021-07-06T03:14:58.778658+00:00</updated>
+  <updated>2021-07-06T03:31:26.744466+00:00</updated>
   <link href="http://predictablysunny.com/"/>
   <link href="http://predictablysunny.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.19">ABlog</generator>
   <entry>
     <id>http://predictablysunny.com/posts/remove_data_islands/</id>
-    <title>Using gropuby to remove 'data islands'</title>
+    <title>Using GroupBy to remove 'data islands'</title>
     <updated>2021-06-09T00:00:00+00:00</updated>
     <content type="html">&lt;p&gt;As anyone who has dealt with measurement data knows, missing and errornous data is inevitable. Applying automatic quality control procedures can improve the data quality. Due to the imperfect nature of such methods, the final dataset might contain many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove gappy sections of data and remove data islands using GroupBy.&lt;/p&gt;
 </content>
