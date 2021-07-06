@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://predictablysunny.com/</id>
   <title>Predictably Sunny</title>
-  <updated>2021-07-06T03:31:26.744466+00:00</updated>
+  <updated>2021-07-06T03:35:00.214429+00:00</updated>
   <link href="http://predictablysunny.com/"/>
   <link href="http://predictablysunny.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.19">ABlog</generator>
@@ -35,5 +35,15 @@ gsoc and pvlib logo</summary>
     <category term="openscience" label="open science"/>
     <category term="gsoc" label="gsoc"/>
     <published>2021-06-10T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>http://predictablysunny.com/posts/intro_to_bsrn/</id>
+    <title>An introduction to the Baseline Surface Radiation Network (BSNR)</title>
+    <updated>2021-07-05T00:00:00+00:00</updated>
+    <content type="html">&lt;p&gt;Hello World&lt;/p&gt;
+</content>
+    <link href="http://predictablysunny.com/posts/intro_to_bsrn/" rel="alternate"/>
+    <summary>Hello World</summary>
+    <published>2021-07-05T00:00:00+00:00</published>
   </entry>
 </feed>
