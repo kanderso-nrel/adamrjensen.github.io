@@ -261,8 +261,8 @@
               <div>
                  <div class="section" id="using-groupby-to-remove-data-islands">
 <h1>Using GroupBy to remove ‘data islands’<a class="headerlink" href="#using-groupby-to-remove-data-islands" title="Permalink to this headline">¶</a></h1>
-<p>As anyone who has dealt with measurement data knows, missing and errornous data is inevitable. Applying automatic quality control procedures can improve the data quality, however, due to the imperfect nature of such methods, the final dataset might contain many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove gappy sections of data and remove data islands using GroupBy.</p>
-<p>Import necessary libraries:</p>
+<p>As anyone who has dealt with measurement data knows, missing and errornous data is inevitable. Applying automatic quality control procedures can improve the data quality, however, due to the imperfect nature of such methods, the final dataset often contains many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove gappy sections of data and remove data islands using GroupBy.</p>
+<p>First, let’s import the necessary libraries:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -305,7 +305,7 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../../_images/remove_data_islands_19_1.png" src="../../_images/remove_data_islands_19_1.png" />
+<img alt="../../_images/remove_data_islands_10_1.png" src="../../_images/remove_data_islands_10_1.png" />
 </div>
 </div>
 <p>As it’s evident there are a lot of missing data around 11 am, and many short periods of data (data islands).</p>
@@ -327,7 +327,7 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../../_images/remove_data_islands_21_1.png" src="../../_images/remove_data_islands_21_1.png" />
+<img alt="../../_images/remove_data_islands_12_1.png" src="../../_images/remove_data_islands_12_1.png" />
 </div>
 </div>
 <p>The next step is then to determine whether a period should be removed or not. This is where the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> operation becomes extremely handy! We group/split the data into different periods based on the column <code class="docutils literal notranslate"><span class="pre">gap_start_stop_cumsum</span></code> and then for each period we determine how many entries it contains. For this we use the <code class="docutils literal notranslate"><span class="pre">transform</span></code> operation on the grouped periods, which returns a dataframe with the same indexes as the original dataframe. The new column, <code class="docutils literal notranslate"><span class="pre">group_count</span></code>, contains the period length for the period which each time step belongs to.</p>
@@ -357,7 +357,7 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../../_images/remove_data_islands_25_1.png" src="../../_images/remove_data_islands_25_1.png" />
+<img alt="../../_images/remove_data_islands_16_1.png" src="../../_images/remove_data_islands_16_1.png" />
 </div>
 </div>
 <p>It is clear now that all the short data periods have been removed and we are more confident in the validity of our dataset.</p>
