@@ -2,21 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://predictablysunny.com/</id>
   <title>Predictably Sunny</title>
-  <updated>2021-07-30T13:37:59.965763+00:00</updated>
+  <updated>2021-07-30T13:52:23.601653+00:00</updated>
   <link href="http://predictablysunny.com/"/>
   <link href="http://predictablysunny.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.19">ABlog</generator>
-  <entry>
-    <id>http://predictablysunny.com/posts/remove_data_islands/</id>
-    <title>Using GroupBy to remove 'data islands'</title>
-    <updated>2021-06-09T00:00:00+00:00</updated>
-    <content type="html">&lt;p&gt;As anyone who has dealt with measurement data knows, missing and errornous data is inevitable. Applying automatic quality control procedures can improve the data quality, however, due to the imperfect nature of such methods, the final dataset often contains many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove gappy sections of data and remove data islands using GroupBy.&lt;/p&gt;
-</content>
-    <link href="http://predictablysunny.com/posts/remove_data_islands/" rel="alternate"/>
-    <summary>As anyone who has dealt with measurement data knows, missing and errornous data is inevitable. Applying automatic quality control procedures can improve the data quality, however, due to the imperfect nature of such methods, the final dataset often contains many short periods of questionable data called ‘data islands’. In this blog post, I’ll show you how you can remove gappy sections of data and remove data islands using GroupBy.</summary>
-    <category term="jupyter" label="jupyter"/>
-    <published>2021-06-09T00:00:00+00:00</published>
-  </entry>
   <entry>
     <id>http://predictablysunny.com/posts/gsoc_project_intro/</id>
     <title>pvlib - a one stop source for solar resource data</title>
