@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://predictablysunny.com/</id>
   <title>Predictably Sunny</title>
-  <updated>2021-07-28T21:09:02.141201+00:00</updated>
+  <updated>2021-07-30T13:37:59.965763+00:00</updated>
   <link href="http://predictablysunny.com/"/>
   <link href="http://predictablysunny.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.19">ABlog</generator>
@@ -45,5 +45,22 @@ gsoc and pvlib logo</summary>
     <link href="http://predictablysunny.com/posts/intro_to_bsrn/" rel="alternate"/>
     <summary>Ground measured irradiance data is often referred to as “ground truth”, due to being used as reference data for validating lesser accurate satellite derived and modelled irradiance data. However, making high-quality solar radiation measurements is expensive and requires weekly maintenance, hence only few of such stations exists, often operated by national meterological institutions.</summary>
     <published>2021-07-05T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>http://predictablysunny.com/posts/data_formats/</id>
+    <title>Data formats</title>
+    <updated>2021-07-19T00:00:00+00:00</updated>
+    <author>
+      <name>Adam R. Jensen</name>
+    </author>
+    <content type="html">&lt;p&gt;Two of the most important considerations is what kind of data you want to include and who (what) should be able to read the files. At this day and age it is a requirement that the file is easily parsed by software, though often it is nice to also be human-readable&lt;/p&gt;
+</content>
+    <link href="http://predictablysunny.com/posts/data_formats/" rel="alternate"/>
+    <summary>Two of the most important considerations is what kind of data you want to include and who (what) should be able to read the files. At this day and age it is a requirement that the file is easily parsed by software, though often it is nice to also be human-readable</summary>
+    <category term="pvlib" label="pvlib"/>
+    <category term="solar" label="solar"/>
+    <category term="openscience" label="open science"/>
+    <category term="gsoc" label="gsoc"/>
+    <published>2021-07-19T00:00:00+00:00</published>
   </entry>
 </feed>
