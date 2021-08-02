@@ -5,14 +5,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta property="og:title" content="An introduction to the Baseline Surface Radiation Network (BSRN)" />
+  <meta property="og:title" content="A quick guide to making this blog" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://predictablysunny.com/posts/intro_to_bsrn.html" />
-  <meta property="og:description" content="Ground measured irradiance data is often referred to as “ground truth”, due to being used as reference data for validating lesser accurate satellite derived and modelled irradiance data. However, m..." />
+  <meta property="og:url" content="https://predictablysunny.com/posts/this_blog.html" />
+  <meta property="og:description" content="MyST-NB: This is what allows Jupyter Notebooks to be converted in blog posts. The parser is built ontop of MyST-parser which is a markdown for the Markedly Structured Text documents (a powerful and..." />
   <meta property="og:image" content="https://predictablysunny.com/_static/profile.png" />
-  <meta property="og:image:alt" content="An introduction to the Baseline Surface Radiation Network (BSRN)" />
+  <meta property="og:image:alt" content="A quick guide to making this blog" />
   
-    <title>An introduction to the Baseline Surface Radiation Network (BSRN) &#8212; Predictably Sunny  documentation</title>
+    <title>A quick guide to making this blog &#8212; Predictably Sunny  documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -159,42 +159,7 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar">  
-<h2>
-   <i class="fa fa-calendar"></i>
-  05 July 2021 
-</h2>
-
-<ul>
-        
-<li id="comments">
-  <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = "adamrjensen"; // required: replace example with your forum shortname
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function () {
-      var s = document.createElement("script");
-      s.async = true;
-      s.type = "text/javascript";
-      s.src = "//" + disqus_shortname + ".disqus.com/count.js";
-      (
-        document.getElementsByTagName("HEAD")[0] ||
-        document.getElementsByTagName("BODY")[0]
-      ).appendChild(s);
-    })();
-  </script>
-  <i class="fa-fw fa fa-comments"></i>
-  <a
-    href="#disqus_thread"
-    data-disqus-identifier="/posts/intro_to_bsrn/"
-  >
-    </a
-  >
-</li>
-
-</ul>
-
+            <div class="col-12 col-md-3 bd-sidebar">
 <h3>
   <a href="../../blog/">Recent Posts</a>
 </h3>
@@ -203,6 +168,12 @@
   <li>
     <a href="../data_formats/"
       >19 July - Data formats</a
+    >
+  </li>
+  
+  <li>
+    <a href="../intro_to_bsrn/"
+      >05 July - An introduction to the Baseline Surface Radiation Network (BSNR)</a
     >
   </li>
   
@@ -224,9 +195,24 @@
               
               <div class="toc-item">
                 
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#myst-nb">
+   MyST-NB
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jupyter-notebooks">
+   Jupyter Notebooks
+  </a>
+ </li>
+</ul>
+
 </nav>
               </div>
               
@@ -245,67 +231,25 @@
           <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
               
               <div>
-                 <div class="section" id="an-introduction-to-the-baseline-surface-radiation-network-bsrn">
-<h1>An introduction to the Baseline Surface Radiation Network (BSRN)<a class="headerlink" href="#an-introduction-to-the-baseline-surface-radiation-network-bsrn" title="Permalink to this headline">¶</a></h1>
-<p>Ground measured irradiance data is often referred to as “ground truth”, due to being used as reference data for validating lesser accurate satellite derived and modelled irradiance data. However, making high-quality solar radiation measurements is expensive and requires weekly maintenance, hence only few of such stations exists, often operated by national meterological institutions.</p>
-<p>The Baselines Surface Radiation Network (<a class="reference external" href="https://bsrn.awi.de/">BSRN</a>) is the only world-wide network of high-quality solar radiation monitoring stations.</p>
-<p>Here’s a complete list of active and inactive stations:</p>
+                 <div class="section" id="a-quick-guide-to-making-this-blog">
+<h1>A quick guide to making this blog<a class="headerlink" href="#a-quick-guide-to-making-this-blog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="myst-nb">
+<h2>MyST-NB<a class="headerlink" href="#myst-nb" title="Permalink to this headline">¶</a></h2>
+<p>This is what allows Jupyter Notebooks to be converted in blog posts. The parser is built ontop of <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/">MyST-parser</a> which is a markdown for the Markedly Structured Text documents (a powerful and Sphinx compatible flavor of Markdown).</p>
+<p>:: {Hint}
+In the conf.py file you only need to include <code class="docutils literal notranslate"><span class="pre">myst-nb</span></code> as this automatically actives the <code class="docutils literal notranslate"><span class="pre">myst-parser</span></code>.
+:::</p>
+<p>MyST-NB conveniently let’s you <a class="reference external" href="https://myst-nb.readthedocs.io/en/latest/use/hiding.html">hide code cells</a>. If you would like to add panels in a grid-layout or drop downs then check out <a class="reference external" href="https://sphinx-panels.readthedocs.io/en/stable/">sphinx-panels</a> extension.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">nbsphinx´</span> <span class="pre">is</span> <span class="pre">older</span> <span class="pre">alternative</span> <span class="pre">package</span> <span class="pre">for</span> <span class="pre">parsing</span> </code>.ipynb<code class="docutils literal notranslate"><span class="pre">files.</span> <span class="pre">The</span> <span class="pre">reason</span> <span class="pre">for</span> <span class="pre">mentioning</span> <span class="pre">this</span> <span class="pre">is</span> <span class="pre">that</span> <span class="pre">this</span> <span class="pre">package</span> <span class="pre">should</span> <span class="pre">not</span> <span class="pre">be</span> <span class="pre">added</span> <span class="pre">as</span> <span class="pre">an</span> <span class="pre">extension</span> <span class="pre">together</span> <span class="pre">with</span></code>myst-nb` as they would be conflicting.</p>
+</div>
+<div class="section" id="jupyter-notebooks">
+<h2>Jupyter Notebooks<a class="headerlink" href="#jupyter-notebooks" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://jupyterbook.org/file-types/myst-notebooks.html">Link</a></p>
+</div>
 </div>
 
 <div class="section">
-     
-<div class="section">
-  <span style="float: left">
-     
-    <a href="../gsoc_project_intro/">
-      <i class="fa fa-arrow-circle-left"></i> pvlib - a one stop source for solar resource data
-    </a>
-    
-  </span>
-  <span>&nbsp;</span>
-  <span style="float: right">
-     
-    <a href="../data_formats/">
-      Data formats <i
-        class="fa fa-arrow-circle-right"
-      ></i
-      >
-    </a>
-    
-  </span>
-</div>
-  
-  <div class="section">
-    <h2>Comments</h2>
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      var disqus_shortname = "adamrjensen";
-      var disqus_identifier = "/posts/intro_to_bsrn/";
-      var disqus_title = "An introduction to the Baseline Surface Radiation Network (BSRN)";
-      var disqus_url = "http://predictablysunny.com/posts/intro_to_bsrn";
-
-      (function () {
-        var dsq = document.createElement("script");
-        dsq.type = "text/javascript";
-        dsq.async = true;
-        dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
-        (
-          document.getElementsByTagName("head")[0] ||
-          document.getElementsByTagName("body")[0]
-        ).appendChild(dsq);
-      })();
-    </script>
-    <noscript
-      >Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript"
-        >comments powered by Disqus.</a
-      ></noscript
-    >
-    <a href="https://disqus.com" class="dsq-brlink"
-      >comments powered by <span class="logo-disqus">Disqus</span></a
-    >
-  </div>
-  
+   
 </div>
 
               </div>
