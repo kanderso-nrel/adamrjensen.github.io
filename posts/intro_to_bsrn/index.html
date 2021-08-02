@@ -250,6 +250,1228 @@
 <p>Ground measured irradiance data is often referred to as “ground truth”, due to being used as reference data for validating lesser accurate satellite derived and modelled irradiance data. However, making high-quality solar radiation measurements is expensive and requires weekly maintenance, hence only few of such stations exists, often operated by national meterological institutions.</p>
 <p>The Baselines Surface Radiation Network (<a class="reference external" href="https://bsrn.awi.de/">BSRN</a>) is the only world-wide network of high-quality solar radiation monitoring stations.</p>
 <p>Here’s a complete list of active and inactive stations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bsrn_station_listing_url</span> <span class="o">=</span> <span class="s1">&#39;https://wiki.pangaea.de/wiki/BSRN#Sortable_Table_of_Stations&#39;</span>
+
+<span class="n">bsrn_stations</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">bsrn_station_listing_url</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">bsrn_stations</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Station full name</th>
+      <th>Abbreviation</th>
+      <th>Location</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Elevation</th>
+      <th>First dataset in archive</th>
+      <th>Upward fluxes (in LR)</th>
+      <th>Surface type</th>
+      <th>Topography type</th>
+      <th>Rural/Urban II</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alert</td>
+      <td>ALE</td>
+      <td>Canada, Lincoln Sea</td>
+      <td>82.4900</td>
+      <td>-62.4200</td>
+      <td>127.0</td>
+      <td>2004-08-16</td>
+      <td>LR0300</td>
+      <td>tundra</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>Closed</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Alice Springs</td>
+      <td>ASP</td>
+      <td>Australia, Northern Territory</td>
+      <td>-23.7980</td>
+      <td>133.8880</td>
+      <td>547.0</td>
+      <td>1995-01-01</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Barrow</td>
+      <td>BAR</td>
+      <td>USA , Alaska</td>
+      <td>71.3230</td>
+      <td>-156.6070</td>
+      <td>8.0</td>
+      <td>1992-01-01</td>
+      <td>LR0300</td>
+      <td>tundra</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bermuda</td>
+      <td>BER</td>
+      <td>USA, Bermuda</td>
+      <td>32.2670</td>
+      <td>-64.6670</td>
+      <td>8.0</td>
+      <td>1992-01-01</td>
+      <td>NaN</td>
+      <td>water, ocean</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Billings</td>
+      <td>BIL</td>
+      <td>USA, Oklahoma</td>
+      <td>36.6050</td>
+      <td>-97.5160</td>
+      <td>317.0</td>
+      <td>1993-06-01</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Bondville</td>
+      <td>BON</td>
+      <td>USA, Illinois</td>
+      <td>40.0667</td>
+      <td>-88.3667</td>
+      <td>213.0</td>
+      <td>1995-01-01</td>
+      <td>LR3010</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Boulder</td>
+      <td>BOS</td>
+      <td>USA, Colorado</td>
+      <td>40.1250</td>
+      <td>-105.2370</td>
+      <td>1689.0</td>
+      <td>1995-07-01</td>
+      <td>LR3010</td>
+      <td>grass</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Boulder</td>
+      <td>BOU</td>
+      <td>USA, Colorado</td>
+      <td>40.0500</td>
+      <td>-105.0070</td>
+      <td>1577.0</td>
+      <td>1992-01-01</td>
+      <td>LR3300</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>Closed in July 2016</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Brasilia</td>
+      <td>BRB</td>
+      <td>Brazil, Brasilia City</td>
+      <td>-15.6010</td>
+      <td>-47.7130</td>
+      <td>1023.0</td>
+      <td>2006-02-01</td>
+      <td>NaN</td>
+      <td>concrete, since 2015: shrub</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Budapest-Lorinc</td>
+      <td>BUD</td>
+      <td>Hungary, Budapest</td>
+      <td>47.4291</td>
+      <td>19.1822</td>
+      <td>139.1</td>
+      <td>2019-06-01</td>
+      <td>LR0300</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Cabauw</td>
+      <td>CAB</td>
+      <td>Netherlands</td>
+      <td>51.9711</td>
+      <td>4.9267</td>
+      <td>0.0</td>
+      <td>2005-12-01</td>
+      <td>LR0300</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Camborne</td>
+      <td>CAM</td>
+      <td>United Kingdom</td>
+      <td>50.2167</td>
+      <td>-5.3167</td>
+      <td>88.0</td>
+      <td>2001-01-01</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Cape Baranova</td>
+      <td>CAP</td>
+      <td>Russia</td>
+      <td>79.2700</td>
+      <td>101.7500</td>
+      <td>NaN</td>
+      <td>2016-01-01</td>
+      <td>LR0300</td>
+      <td>tundra</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Carpentras</td>
+      <td>CAR</td>
+      <td>France</td>
+      <td>44.0830</td>
+      <td>5.0590</td>
+      <td>100.0</td>
+      <td>1996-08-01</td>
+      <td>NaN</td>
+      <td>cultivated</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>Closed in Dec 2018</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Chesapeake Light</td>
+      <td>CLH</td>
+      <td>USA, North Atlantic Ocean</td>
+      <td>36.9050</td>
+      <td>-75.7130</td>
+      <td>37.0</td>
+      <td>2000-06-01</td>
+      <td>LR0300</td>
+      <td>water, ocean</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>Closed in Dec 2016, structural issues</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Cener</td>
+      <td>CNR</td>
+      <td>Spain, Navarra</td>
+      <td>42.8160</td>
+      <td>-1.6010</td>
+      <td>471.0</td>
+      <td>2009-07-01</td>
+      <td>NaN</td>
+      <td>asphalt</td>
+      <td>mountain valley</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Cocos Island</td>
+      <td>COC</td>
+      <td>Australia, Cocos (Keeling) Islands</td>
+      <td>-12.1930</td>
+      <td>96.8350</td>
+      <td>6.0</td>
+      <td>2004-09-14</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>De Aar</td>
+      <td>DAA</td>
+      <td>South Africa</td>
+      <td>-30.6667</td>
+      <td>23.9930</td>
+      <td>1287.0</td>
+      <td>2000-05-01</td>
+      <td>NaN</td>
+      <td>sand</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Darwin</td>
+      <td>DAR</td>
+      <td>Australia</td>
+      <td>-12.4250</td>
+      <td>130.8910</td>
+      <td>30.0</td>
+      <td>2002-06-01</td>
+      <td>LR3010</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>Closed Jan 2015</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Concordia Station, Dome C</td>
+      <td>DOM</td>
+      <td>Antarctica</td>
+      <td>-75.1000</td>
+      <td>123.3830</td>
+      <td>3233.0</td>
+      <td>2006-01-01</td>
+      <td>LR0300</td>
+      <td>glacier, accumulation area</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Dongsha Atoll</td>
+      <td>DON</td>
+      <td>Taiwan</td>
+      <td>20.7000</td>
+      <td>116.7300</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Candidate</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Desert Rock</td>
+      <td>DRA</td>
+      <td>USA, Nevada</td>
+      <td>36.6260</td>
+      <td>-116.0180</td>
+      <td>1007.0</td>
+      <td>1998-02-01</td>
+      <td>LR3010</td>
+      <td>desert, gravel</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Darwin Met Office</td>
+      <td>DWN</td>
+      <td>Australia</td>
+      <td>-12.4240</td>
+      <td>130.8925</td>
+      <td>32.0</td>
+      <td>2008-04-01</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Southern Great Plains</td>
+      <td>E13</td>
+      <td>USA, Oklahoma</td>
+      <td>36.6050</td>
+      <td>-97.4850</td>
+      <td>318.0</td>
+      <td>1997-08-01</td>
+      <td>LR3010</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Eastern North Atlantic</td>
+      <td>ENA</td>
+      <td>Portugal, Azores</td>
+      <td>39.0911</td>
+      <td>-28.0292</td>
+      <td>15.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>Candidate</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Eureka</td>
+      <td>EUR</td>
+      <td>Canada, Ellesmere Island</td>
+      <td>79.9890</td>
+      <td>-85.9404</td>
+      <td>85.0</td>
+      <td>2007-09-01</td>
+      <td>NaN</td>
+      <td>tundra</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>Closed</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Florianopolis</td>
+      <td>FLO</td>
+      <td>Brazil, South Atlantic Ocean</td>
+      <td>-27.6047</td>
+      <td>-48.5227</td>
+      <td>11.0</td>
+      <td>1994-06-01</td>
+      <td>NaN</td>
+      <td>concrete</td>
+      <td>mountain valley</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Fort Peck</td>
+      <td>FPE</td>
+      <td>USA, Montana</td>
+      <td>48.3167</td>
+      <td>-105.1000</td>
+      <td>634.0</td>
+      <td>1995-01-01</td>
+      <td>LR3010</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Fukuoka</td>
+      <td>FUA</td>
+      <td>Japan</td>
+      <td>33.5822</td>
+      <td>130.3764</td>
+      <td>3.0</td>
+      <td>2010-04-01</td>
+      <td>NaN</td>
+      <td>asphalt</td>
+      <td>flat</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Gandhinagar</td>
+      <td>GAN</td>
+      <td>India</td>
+      <td>23.1101</td>
+      <td>72.6276</td>
+      <td>65.0</td>
+      <td>2014-05-19</td>
+      <td>NaN</td>
+      <td>shrub</td>
+      <td>flat</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Goodwin Creek</td>
+      <td>GCR</td>
+      <td>USA, Mississippi</td>
+      <td>34.2547</td>
+      <td>-89.8729</td>
+      <td>98.0</td>
+      <td>1995-01-01</td>
+      <td>LR3010</td>
+      <td>grass</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Granite Island</td>
+      <td>GIM</td>
+      <td>USA, Michigan</td>
+      <td>46.7210</td>
+      <td>87.4110</td>
+      <td>208.0</td>
+      <td>2019-01-01</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>Gobabeb</td>
+      <td>GOB</td>
+      <td>Namibia, Namib Desert</td>
+      <td>-23.5614</td>
+      <td>15.0420</td>
+      <td>407.0</td>
+      <td>2012-05-15</td>
+      <td>LR0300</td>
+      <td>desert gravel</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Gurgaon</td>
+      <td>GUR</td>
+      <td>India</td>
+      <td>28.4249</td>
+      <td>77.1560</td>
+      <td>259.0</td>
+      <td>2014-04-21</td>
+      <td>NaN</td>
+      <td>shrub</td>
+      <td>flat</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>Georg von Neumayer</td>
+      <td>GVN</td>
+      <td>Antarctica, Dronning Maud Land</td>
+      <td>-70.6500</td>
+      <td>-8.2500</td>
+      <td>42.0</td>
+      <td>1992-01-01</td>
+      <td>LR0300</td>
+      <td>iceshelf</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>Howrah</td>
+      <td>HOW</td>
+      <td>India</td>
+      <td>22.5535</td>
+      <td>88.3064</td>
+      <td>51.0</td>
+      <td>2014-06-15</td>
+      <td>NaN</td>
+      <td>shrub</td>
+      <td>flat</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>Ilorin</td>
+      <td>ILO</td>
+      <td>Nigeria</td>
+      <td>8.5333</td>
+      <td>4.5667</td>
+      <td>350.0</td>
+      <td>1992-08-01</td>
+      <td>NaN</td>
+      <td>shrub</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>Station closed in mid-2005, no funding</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>Ishigakijima</td>
+      <td>ISH</td>
+      <td>Japan</td>
+      <td>24.3367</td>
+      <td>124.1644</td>
+      <td>5.7</td>
+      <td>2010-04-01</td>
+      <td>NaN</td>
+      <td>asphalt</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Izaña</td>
+      <td>IZA</td>
+      <td>Spain, Tenerife</td>
+      <td>28.3093</td>
+      <td>-16.4993</td>
+      <td>2372.9</td>
+      <td>2009-03-01</td>
+      <td>LR0300</td>
+      <td>rock</td>
+      <td>mountain top</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Kwajalein</td>
+      <td>KWA</td>
+      <td>Marshall Islands</td>
+      <td>8.7200</td>
+      <td>167.7310</td>
+      <td>10.0</td>
+      <td>1992-03-01</td>
+      <td>NaN</td>
+      <td>water, ocean</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>Closed</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Lauder</td>
+      <td>LAU</td>
+      <td>New Zealand</td>
+      <td>-45.0450</td>
+      <td>169.6890</td>
+      <td>350.0</td>
+      <td>1998-07-01</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>Lerwick</td>
+      <td>LER</td>
+      <td>United Kingdom, Shetland Island</td>
+      <td>60.1389</td>
+      <td>-1.1847</td>
+      <td>80.0</td>
+      <td>2001-01-01</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>Lindenberg</td>
+      <td>LIN</td>
+      <td>Germany</td>
+      <td>52.2100</td>
+      <td>14.1220</td>
+      <td>125.0</td>
+      <td>1994-09-01</td>
+      <td>NaN</td>
+      <td>cultivated</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>Lulin</td>
+      <td>LLN</td>
+      <td>Taiwan</td>
+      <td>23.4686</td>
+      <td>120.8736</td>
+      <td>2862.0</td>
+      <td>2009-01-20</td>
+      <td>NaN</td>
+      <td>Mixed forest</td>
+      <td>mountain top</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>Langley Research Center</td>
+      <td>LRC</td>
+      <td>USA, Virginia</td>
+      <td>37.1038</td>
+      <td>-76.3872</td>
+      <td>3.0</td>
+      <td>2014-12-01</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>Lanyu Station</td>
+      <td>LYU</td>
+      <td>Taiwan</td>
+      <td>22.0370</td>
+      <td>121.5583</td>
+      <td>324.0</td>
+      <td>2018-07-01</td>
+      <td>NaN</td>
+      <td>forest, mixed</td>
+      <td>mountain top</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>Momote</td>
+      <td>MAN</td>
+      <td>Papua New Guinea</td>
+      <td>-2.0580</td>
+      <td>147.4250</td>
+      <td>6.0</td>
+      <td>1996-09-01</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>Closed late 2013</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>Minamitorishima</td>
+      <td>MNM</td>
+      <td>Japan, Minami-Torishima</td>
+      <td>24.2883</td>
+      <td>153.9833</td>
+      <td>7.1</td>
+      <td>2010-04-01</td>
+      <td>NaN</td>
+      <td>water (ocean)</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>Nauru Island</td>
+      <td>NAU</td>
+      <td>Nauru</td>
+      <td>-0.5210</td>
+      <td>166.9167</td>
+      <td>7.0</td>
+      <td>1998-11-01</td>
+      <td>NaN</td>
+      <td>rock</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>Closed late 2013</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>Newcastle</td>
+      <td>NEW</td>
+      <td>Australia</td>
+      <td>-32.8842</td>
+      <td>151.7289</td>
+      <td>18.5</td>
+      <td>2017-09-01</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>hilly</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>Ny-Ålesund</td>
+      <td>NYA</td>
+      <td>Norway, Spitsbergen</td>
+      <td>78.9250</td>
+      <td>11.9300</td>
+      <td>11.0</td>
+      <td>1992-08-01</td>
+      <td>LR0300</td>
+      <td>tundra</td>
+      <td>mountain valley</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>Observatory of Huancayo</td>
+      <td>OHY</td>
+      <td>Peru</td>
+      <td>-12.0500</td>
+      <td>-75.3200</td>
+      <td>3314.0</td>
+      <td>2017-08-01</td>
+      <td>LR0300</td>
+      <td>grass</td>
+      <td>mountain valley</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>Palaiseau, SIRTA Observatory</td>
+      <td>PAL</td>
+      <td>France</td>
+      <td>48.7130</td>
+      <td>2.2080</td>
+      <td>156.0</td>
+      <td>2003-05-01</td>
+      <td>NaN</td>
+      <td>concrete</td>
+      <td>flat</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>Paramaribo</td>
+      <td>PAR</td>
+      <td>Surinam</td>
+      <td>5.8060</td>
+      <td>-55.2146</td>
+      <td>4.0</td>
+      <td>2019-01-01</td>
+      <td>NaN</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>Payerne</td>
+      <td>PAY</td>
+      <td>Switzerland</td>
+      <td>46.8150</td>
+      <td>6.9440</td>
+      <td>491.0</td>
+      <td>1992-09-01</td>
+      <td>LR0300,LR3010,LR3030</td>
+      <td>cultivated</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>Rock Springs</td>
+      <td>PSU</td>
+      <td>USA, Pennsylvania</td>
+      <td>40.7200</td>
+      <td>-77.9333</td>
+      <td>376.0</td>
+      <td>1998-05-01</td>
+      <td>LR3010</td>
+      <td>cultivated</td>
+      <td>mountain valley</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>Petrolina</td>
+      <td>PTR</td>
+      <td>Brazil</td>
+      <td>-9.0680</td>
+      <td>-40.3190</td>
+      <td>387.0</td>
+      <td>2006-12-01</td>
+      <td>NaN</td>
+      <td>concrete, since 2015: shrub</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>Regina</td>
+      <td>REG</td>
+      <td>Canada</td>
+      <td>50.2050</td>
+      <td>-104.7130</td>
+      <td>578.0</td>
+      <td>1995-01-01</td>
+      <td>NaN</td>
+      <td>cultivated</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>Closed end of 2011</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>Rolim de Moura</td>
+      <td>RLM</td>
+      <td>Brazil</td>
+      <td>-11.5820</td>
+      <td>-61.7730</td>
+      <td>252.0</td>
+      <td>2007-01-01</td>
+      <td>NaN</td>
+      <td>concrete</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>Closed in 2008</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>Reunion Island, University</td>
+      <td>RUN</td>
+      <td>Reunion</td>
+      <td>-20.9014</td>
+      <td>55.4836</td>
+      <td>116.0</td>
+      <td>2019-06-01</td>
+      <td>NaN</td>
+      <td>concrete</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>Sapporo</td>
+      <td>SAP</td>
+      <td>Japan</td>
+      <td>43.0600</td>
+      <td>141.3286</td>
+      <td>17.2</td>
+      <td>2010-04-01</td>
+      <td>NaN</td>
+      <td>asphalt</td>
+      <td>flat</td>
+      <td>urban</td>
+      <td>Closed in Dec 2020</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>Sede Boqer</td>
+      <td>SBO</td>
+      <td>Israel</td>
+      <td>30.8597</td>
+      <td>34.7794</td>
+      <td>500.0</td>
+      <td>2003-01-01</td>
+      <td>NaN</td>
+      <td>desert rock</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>Closed 2012</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>Selegua, Mexico Solarimetric Station</td>
+      <td>SEL</td>
+      <td>Mexico</td>
+      <td>15.7840</td>
+      <td>-91.9902</td>
+      <td>602.0</td>
+      <td>2020-01-01</td>
+      <td>LR0300</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>São Martinho da Serra</td>
+      <td>SMS</td>
+      <td>Brazil</td>
+      <td>-29.4428</td>
+      <td>-53.8231</td>
+      <td>489.0</td>
+      <td>2006-01-01</td>
+      <td>NaN</td>
+      <td>concrete, since 2015: grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>Sonnblick</td>
+      <td>SON</td>
+      <td>Austria</td>
+      <td>47.0540</td>
+      <td>12.9577</td>
+      <td>3108.9</td>
+      <td>2013-01-01</td>
+      <td>NaN</td>
+      <td>rock</td>
+      <td>mountain top</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>Solar Village</td>
+      <td>SOV</td>
+      <td>Saudi Arabia</td>
+      <td>24.9100</td>
+      <td>46.4100</td>
+      <td>650.0</td>
+      <td>1998-08-01</td>
+      <td>LR3030</td>
+      <td>desert, sand</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>Closed/no longer maintained since 2002</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>South Pole</td>
+      <td>SPO</td>
+      <td>Antarctica</td>
+      <td>-89.9830</td>
+      <td>-24.7990</td>
+      <td>2800.0</td>
+      <td>1992-01-01</td>
+      <td>LR0300</td>
+      <td>glacier, accumulation area</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>Sioux Falls</td>
+      <td>SXF</td>
+      <td>USA, South Dakota</td>
+      <td>43.7300</td>
+      <td>-96.6200</td>
+      <td>473.0</td>
+      <td>2003-06-01</td>
+      <td>LR3010</td>
+      <td>grass</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>Syowa</td>
+      <td>SYO</td>
+      <td>Antarctica</td>
+      <td>-69.0050</td>
+      <td>39.5890</td>
+      <td>18.0</td>
+      <td>1994-01-01</td>
+      <td>LR0300</td>
+      <td>sea ice</td>
+      <td>hilly</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>Tamanrasset</td>
+      <td>TAM</td>
+      <td>Algeria</td>
+      <td>22.7903</td>
+      <td>5.5292</td>
+      <td>1385.0</td>
+      <td>2000-03-01</td>
+      <td>NaN</td>
+      <td>desert, rock</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>70</th>
+      <td>Tateno</td>
+      <td>TAT</td>
+      <td>Japan</td>
+      <td>36.0581</td>
+      <td>140.1258</td>
+      <td>25.0</td>
+      <td>1996-02-01</td>
+      <td>LR0300</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>Tiksi</td>
+      <td>TIK</td>
+      <td>Russia, Siberia</td>
+      <td>71.5862</td>
+      <td>128.9188</td>
+      <td>48.0</td>
+      <td>2010-06-08</td>
+      <td>LR0300</td>
+      <td>tundra</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>Tiruvallur</td>
+      <td>TIR</td>
+      <td>India</td>
+      <td>13.0923</td>
+      <td>79.9738</td>
+      <td>36.0</td>
+      <td>2014-04-16</td>
+      <td>NaN</td>
+      <td>rock</td>
+      <td>NaN</td>
+      <td>urban</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>73</th>
+      <td>Toravere</td>
+      <td>TOR</td>
+      <td>Estonia</td>
+      <td>58.2540</td>
+      <td>26.4620</td>
+      <td>70.0</td>
+      <td>1999-01-01</td>
+      <td>LR0300</td>
+      <td>grass</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>74</th>
+      <td>Xianghe</td>
+      <td>XIA</td>
+      <td>China</td>
+      <td>39.7540</td>
+      <td>116.9620</td>
+      <td>32.0</td>
+      <td>2005-01-01</td>
+      <td>NaN</td>
+      <td>desert, rock</td>
+      <td>flat</td>
+      <td>rural</td>
+      <td>Station obstructed, no longer in BSRN since 2016</td>
+    </tr>
+    <tr>
+      <th>75</th>
+      <td>Yushan Station</td>
+      <td>YUS</td>
+      <td>Taiwan</td>
+      <td>23.4876</td>
+      <td>120.9595</td>
+      <td>3858.0</td>
+      <td>2018-04-01</td>
+      <td>NaN</td>
+      <td>forest, mixed</td>
+      <td>mountain top</td>
+      <td>rural</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The global coverage of the BSRN can be more readily appreciated by visualizing the coverage geographically:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">folium</span>  <span class="c1"># Import the Folium library</span>
+<span class="c1"># Initialize Folium map</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span>
+    <span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
+    <span class="n">zoom_start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">min_zoom</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">max_bounds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;openstreetmap&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add each station to the map</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">bsrn_stations</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">folium</span><span class="o">.</span><span class="n">Marker</span><span class="p">(</span>
+        <span class="n">location</span><span class="o">=</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]],</span>
+        <span class="n">popup</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Station full name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">folium</span><span class="o">.</span><span class="n">Icon</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="n">m</span>  <span class="c1"># Show the map</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -> Trust Notebook</span><iframe src="about:blank" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" data-html=%3C%21DOCTYPE%20html%3E%0A%3Chead%3E%20%20%20%20%0A%20%20%20%20%3Cmeta%20http-equiv%3D%22content-type%22%20content%3D%22text/html%3B%20charset%3DUTF-8%22%20/%3E%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%3Cscript%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20L_NO_TOUCH%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20L_DISABLE_3D%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%3C/script%3E%0A%20%20%20%20%0A%20%20%20%20%3Cstyle%3Ehtml%2C%20body%20%7Bwidth%3A%20100%25%3Bheight%3A%20100%25%3Bmargin%3A%200%3Bpadding%3A%200%3B%7D%3C/style%3E%0A%20%20%20%20%3Cstyle%3E%23map%20%7Bposition%3Aabsolute%3Btop%3A0%3Bbottom%3A0%3Bright%3A0%3Bleft%3A0%3B%7D%3C/style%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//cdn.jsdelivr.net/npm/leaflet%401.6.0/dist/leaflet.js%22%3E%3C/script%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//code.jquery.com/jquery-1.12.4.min.js%22%3E%3C/script%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js%22%3E%3C/script%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js%22%3E%3C/script%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//cdn.jsdelivr.net/npm/leaflet%401.6.0/dist/leaflet.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css%22/%3E%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20initial-scale%3D1.0%2C%20maximum-scale%3D1.0%2C%20user-scalable%3Dno%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cstyle%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23map_f0b38d5be34d4076ad2e25610e6c7401%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20width%3A%20100.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20height%3A%20100.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20left%3A%200.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20top%3A%200.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/style%3E%0A%20%20%20%20%20%20%20%20%0A%3C/head%3E%0A%3Cbody%3E%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22folium-map%22%20id%3D%22map_f0b38d5be34d4076ad2e25610e6c7401%22%20%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%0A%3C/body%3E%0A%3Cscript%3E%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20map_f0b38d5be34d4076ad2e25610e6c7401%20%3D%20L.map%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22map_f0b38d5be34d4076ad2e25610e6c7401%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20center%3A%20%5B0.0%2C%2015.0%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20crs%3A%20L.CRS.EPSG3857%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20maxBounds%3A%20%5B%5B-90%2C%20-180%5D%2C%20%5B90%2C%20180%5D%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20zoom%3A%201%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20zoomControl%3A%20true%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20preferCanvas%3A%20false%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20tile_layer_dc9c6e80ff7747498f567122247e7d87%20%3D%20L.tileLayer%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22https%3A//%7Bs%7D.tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22attribution%22%3A%20%22Data%20by%20%5Cu0026copy%3B%20%5Cu003ca%20href%3D%5C%22http%3A//openstreetmap.org%5C%22%5Cu003eOpenStreetMap%5Cu003c/a%5Cu003e%2C%20under%20%5Cu003ca%20href%3D%5C%22http%3A//www.openstreetmap.org/copyright%5C%22%5Cu003eODbL%5Cu003c/a%5Cu003e.%22%2C%20%22detectRetina%22%3A%20false%2C%20%22maxNativeZoom%22%3A%2018%2C%20%22maxZoom%22%3A%2018%2C%20%22minZoom%22%3A%201%2C%20%22noWrap%22%3A%20false%2C%20%22opacity%22%3A%201%2C%20%22subdomains%22%3A%20%22abc%22%2C%20%22tms%22%3A%20false%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_b54b771ec332429eb1de4341efac019c%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B82.49%2C%20-62.42%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_89675e0b8b734069bc8209046a91d1e9%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_b54b771ec332429eb1de4341efac019c.setIcon%28icon_89675e0b8b734069bc8209046a91d1e9%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_d6deb70ad4664feaae4e346d390a8060%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_28e178f999ee468d8d8647814c18533a%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_28e178f999ee468d8d8647814c18533a%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EAlert%20%280%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_d6deb70ad4664feaae4e346d390a8060.setContent%28html_28e178f999ee468d8d8647814c18533a%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_b54b771ec332429eb1de4341efac019c.bindPopup%28popup_d6deb70ad4664feaae4e346d390a8060%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_18684081c6e0487b8fac9af53d4d3a9e%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-23.798%2C%20133.888%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_3e1838852345416ea71549643bd80e41%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_18684081c6e0487b8fac9af53d4d3a9e.setIcon%28icon_3e1838852345416ea71549643bd80e41%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_6f2f204f947d477d8176e8a68c729070%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_a70e15e2145e4c0c88e5b755409185e2%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_a70e15e2145e4c0c88e5b755409185e2%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EAlice%20Springs%20%281%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_6f2f204f947d477d8176e8a68c729070.setContent%28html_a70e15e2145e4c0c88e5b755409185e2%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_18684081c6e0487b8fac9af53d4d3a9e.bindPopup%28popup_6f2f204f947d477d8176e8a68c729070%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_db878247409649019a5a7678608e01a8%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B71.323%2C%20-156.607%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_34f21f1c55a048158d04eaec6aa1d0ba%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_db878247409649019a5a7678608e01a8.setIcon%28icon_34f21f1c55a048158d04eaec6aa1d0ba%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_789f889e38c44da9952de5d8ab6c68bf%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_a194472302a6494b80a460023ef13c76%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_a194472302a6494b80a460023ef13c76%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EBarrow%20%282%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_789f889e38c44da9952de5d8ab6c68bf.setContent%28html_a194472302a6494b80a460023ef13c76%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_db878247409649019a5a7678608e01a8.bindPopup%28popup_789f889e38c44da9952de5d8ab6c68bf%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_1d088f2ac9eb40c99c6a3d4af8590860%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B32.267%2C%20-64.667%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_733db339ea5f41f69f77e71bfa313121%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_1d088f2ac9eb40c99c6a3d4af8590860.setIcon%28icon_733db339ea5f41f69f77e71bfa313121%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_1c047a2631474e02848c8af8278b3a07%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_62b9bc51f2ed42a2a09ba53319f1765e%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_62b9bc51f2ed42a2a09ba53319f1765e%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EBermuda%20%283%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_1c047a2631474e02848c8af8278b3a07.setContent%28html_62b9bc51f2ed42a2a09ba53319f1765e%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_1d088f2ac9eb40c99c6a3d4af8590860.bindPopup%28popup_1c047a2631474e02848c8af8278b3a07%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_9fe0e08e46484b7a90a8b60d8b170286%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B36.605%2C%20-97.516%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_cb674380560842ec81ab37a51b621b47%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_9fe0e08e46484b7a90a8b60d8b170286.setIcon%28icon_cb674380560842ec81ab37a51b621b47%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_e3b07b6ff6b14924901f8ddd4a4e0263%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_ab30067faa3a4491bbff9114576688ca%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_ab30067faa3a4491bbff9114576688ca%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EBillings%20%284%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_e3b07b6ff6b14924901f8ddd4a4e0263.setContent%28html_ab30067faa3a4491bbff9114576688ca%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_9fe0e08e46484b7a90a8b60d8b170286.bindPopup%28popup_e3b07b6ff6b14924901f8ddd4a4e0263%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_a84fc65f79bf4f74b67a6ebb63a9d3cb%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B40.0667%2C%20-88.3667%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_cb847f1648814675872b7bf119d18d76%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_a84fc65f79bf4f74b67a6ebb63a9d3cb.setIcon%28icon_cb847f1648814675872b7bf119d18d76%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_df1e5c7c447242baaf6f62a63f2ceee1%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_3b0fb4d46c6a41eea550df4c18076d71%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_3b0fb4d46c6a41eea550df4c18076d71%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EBondville%20%285%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_df1e5c7c447242baaf6f62a63f2ceee1.setContent%28html_3b0fb4d46c6a41eea550df4c18076d71%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_a84fc65f79bf4f74b67a6ebb63a9d3cb.bindPopup%28popup_df1e5c7c447242baaf6f62a63f2ceee1%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_6d81cf3afed44d6aa1bcf32f6b3cfc29%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B40.125%2C%20-105.237%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_6090dadbfb2347fd8c011642ea07a471%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_6d81cf3afed44d6aa1bcf32f6b3cfc29.setIcon%28icon_6090dadbfb2347fd8c011642ea07a471%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_9814f4e4ada144c7a1a253a201baaf40%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_69f376530e44437994d6bd0067ce385d%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_69f376530e44437994d6bd0067ce385d%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EBoulder%20%286%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_9814f4e4ada144c7a1a253a201baaf40.setContent%28html_69f376530e44437994d6bd0067ce385d%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_6d81cf3afed44d6aa1bcf32f6b3cfc29.bindPopup%28popup_9814f4e4ada144c7a1a253a201baaf40%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_75230bf809d5438ba7315390cf1b57b7%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B40.05%2C%20-105.007%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_e2fc023289b8492ca30b45bfeead5c01%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_75230bf809d5438ba7315390cf1b57b7.setIcon%28icon_e2fc023289b8492ca30b45bfeead5c01%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_09befa8e1815491cacd07632ea0a2a19%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_d86736259f494eb98b29d39709a2316f%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_d86736259f494eb98b29d39709a2316f%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EBoulder%20%287%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_09befa8e1815491cacd07632ea0a2a19.setContent%28html_d86736259f494eb98b29d39709a2316f%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_75230bf809d5438ba7315390cf1b57b7.bindPopup%28popup_09befa8e1815491cacd07632ea0a2a19%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_c2a127370fd84e93adde7fdbd53b4a60%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-15.601%2C%20-47.713%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_ad58221c90764343a65ca1cb0aea6d1d%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_c2a127370fd84e93adde7fdbd53b4a60.setIcon%28icon_ad58221c90764343a65ca1cb0aea6d1d%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_5bca1077fc9746198b471ee3e149007b%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_d9c49201ff314d3dbbe810040695fad6%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_d9c49201ff314d3dbbe810040695fad6%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EBrasilia%20%288%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_5bca1077fc9746198b471ee3e149007b.setContent%28html_d9c49201ff314d3dbbe810040695fad6%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_c2a127370fd84e93adde7fdbd53b4a60.bindPopup%28popup_5bca1077fc9746198b471ee3e149007b%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_2c24d5f35bdb48ef856e16e96042a27c%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B47.4291%2C%2019.1822%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_c2c474162114417e8a83bf4efd40fb26%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_2c24d5f35bdb48ef856e16e96042a27c.setIcon%28icon_c2c474162114417e8a83bf4efd40fb26%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_ff33406870534a08a9e4cbc8db45fe7c%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_5da4d19694c9450e807d485881000a70%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_5da4d19694c9450e807d485881000a70%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EBudapest-Lorinc%20%289%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_ff33406870534a08a9e4cbc8db45fe7c.setContent%28html_5da4d19694c9450e807d485881000a70%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_2c24d5f35bdb48ef856e16e96042a27c.bindPopup%28popup_ff33406870534a08a9e4cbc8db45fe7c%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_05b9706fbcb7410dba6b0ce91df6b487%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B51.9711%2C%204.9267%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_daf4888ac38f43fa9d088acd112ebda1%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_05b9706fbcb7410dba6b0ce91df6b487.setIcon%28icon_daf4888ac38f43fa9d088acd112ebda1%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_ace267b93aec40ff87618c143aec4eb3%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_d89219cfc9794e21b356d8e695b96093%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_d89219cfc9794e21b356d8e695b96093%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ECabauw%20%2810%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_ace267b93aec40ff87618c143aec4eb3.setContent%28html_d89219cfc9794e21b356d8e695b96093%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_05b9706fbcb7410dba6b0ce91df6b487.bindPopup%28popup_ace267b93aec40ff87618c143aec4eb3%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_158b13f26b214364a682c8c2757264c4%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B50.2167%2C%20-5.3167%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_5dc47f79c9554b20a84478787ce51721%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_158b13f26b214364a682c8c2757264c4.setIcon%28icon_5dc47f79c9554b20a84478787ce51721%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_2e89d66cdbe449aba93bb603f413fd73%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_6c50e654e95b4a54904f99ffcafb322e%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_6c50e654e95b4a54904f99ffcafb322e%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ECamborne%20%2811%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_2e89d66cdbe449aba93bb603f413fd73.setContent%28html_6c50e654e95b4a54904f99ffcafb322e%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_158b13f26b214364a682c8c2757264c4.bindPopup%28popup_2e89d66cdbe449aba93bb603f413fd73%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_0262306063c94d7f8cd95299a0e614f0%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B79.27%2C%20101.75%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_5b8a355c3ce4497f9b7a82afab87fe9e%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_0262306063c94d7f8cd95299a0e614f0.setIcon%28icon_5b8a355c3ce4497f9b7a82afab87fe9e%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_8ef08e0013fe458399bba0936e0d201e%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_8cb88d46cc1540f7afae619e2f0f506e%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_8cb88d46cc1540f7afae619e2f0f506e%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ECape%20Baranova%20%2812%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_8ef08e0013fe458399bba0936e0d201e.setContent%28html_8cb88d46cc1540f7afae619e2f0f506e%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_0262306063c94d7f8cd95299a0e614f0.bindPopup%28popup_8ef08e0013fe458399bba0936e0d201e%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_8285620cd36142a6b0e4cf8d793f5616%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B44.083%2C%205.059%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_681b5d91115748e98f8a002a612562c0%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_8285620cd36142a6b0e4cf8d793f5616.setIcon%28icon_681b5d91115748e98f8a002a612562c0%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_97c639cc4a6d47ac9d8f90e9ac5eeb69%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_6ab1b04489cf4d31bbbb514fd449acb0%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_6ab1b04489cf4d31bbbb514fd449acb0%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ECarpentras%20%2813%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_97c639cc4a6d47ac9d8f90e9ac5eeb69.setContent%28html_6ab1b04489cf4d31bbbb514fd449acb0%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_8285620cd36142a6b0e4cf8d793f5616.bindPopup%28popup_97c639cc4a6d47ac9d8f90e9ac5eeb69%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_eba22bf98c9c458fa738559a26126897%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B36.905%2C%20-75.713%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_6ff5d1a87481449d9a788d70b91221a8%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_eba22bf98c9c458fa738559a26126897.setIcon%28icon_6ff5d1a87481449d9a788d70b91221a8%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_a75b1aeac317482cbb58064ca908c090%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_f6fd7cb7675345cdae0fc58152b51b09%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_f6fd7cb7675345cdae0fc58152b51b09%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EChesapeake%20Light%20%2814%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_a75b1aeac317482cbb58064ca908c090.setContent%28html_f6fd7cb7675345cdae0fc58152b51b09%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_eba22bf98c9c458fa738559a26126897.bindPopup%28popup_a75b1aeac317482cbb58064ca908c090%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_1b7f2438506247f48c6e0cd4965eddd3%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B42.816%2C%20-1.601%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_1e37d83231de44b69c89919a3bf9d7b0%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_1b7f2438506247f48c6e0cd4965eddd3.setIcon%28icon_1e37d83231de44b69c89919a3bf9d7b0%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_f0e4c9dffaa84750a36dc28eee87c8b5%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_45d8b4aafa9c4441b8781e4393223c4e%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_45d8b4aafa9c4441b8781e4393223c4e%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ECener%20%2815%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_f0e4c9dffaa84750a36dc28eee87c8b5.setContent%28html_45d8b4aafa9c4441b8781e4393223c4e%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_1b7f2438506247f48c6e0cd4965eddd3.bindPopup%28popup_f0e4c9dffaa84750a36dc28eee87c8b5%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_53286e7ff0314b66bf9507207cbd1ffd%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-12.193%2C%2096.835%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_a796c1e34f5e4be693f35a1aa3a04ce6%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_53286e7ff0314b66bf9507207cbd1ffd.setIcon%28icon_a796c1e34f5e4be693f35a1aa3a04ce6%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_8fc0c810cd374aafa1244974d97ff8ad%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_59c279a481cd46eebe28ec31e09aa7a9%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_59c279a481cd46eebe28ec31e09aa7a9%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ECocos%20Island%20%2816%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_8fc0c810cd374aafa1244974d97ff8ad.setContent%28html_59c279a481cd46eebe28ec31e09aa7a9%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_53286e7ff0314b66bf9507207cbd1ffd.bindPopup%28popup_8fc0c810cd374aafa1244974d97ff8ad%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_923f95a0a72e4939b9c63fc10f23a993%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-30.6667%2C%2023.993%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_d7098406f1ef40ff805399033f877314%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_923f95a0a72e4939b9c63fc10f23a993.setIcon%28icon_d7098406f1ef40ff805399033f877314%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_b38fdebbf7564284a50875e2672fc2dd%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_d40b5ec956e54621bd5d3d035f29f094%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_d40b5ec956e54621bd5d3d035f29f094%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EDe%20Aar%20%2817%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_b38fdebbf7564284a50875e2672fc2dd.setContent%28html_d40b5ec956e54621bd5d3d035f29f094%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_923f95a0a72e4939b9c63fc10f23a993.bindPopup%28popup_b38fdebbf7564284a50875e2672fc2dd%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_dc2177928a1046c682245b597770c34e%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-12.425%2C%20130.891%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_148ec8337b994377b7318a279c0b8ab0%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_dc2177928a1046c682245b597770c34e.setIcon%28icon_148ec8337b994377b7318a279c0b8ab0%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_d0ede62077b84ff88fed6503108b00f2%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_b01f1702791449deb8c95d47f7a610ad%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_b01f1702791449deb8c95d47f7a610ad%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EDarwin%20%2818%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_d0ede62077b84ff88fed6503108b00f2.setContent%28html_b01f1702791449deb8c95d47f7a610ad%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_dc2177928a1046c682245b597770c34e.bindPopup%28popup_d0ede62077b84ff88fed6503108b00f2%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_de2b6f82a47d4a64a5dff49464b68102%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-75.1%2C%20123.383%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_1a3b9a13f7184f8cb3cfd8c1a02808b6%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_de2b6f82a47d4a64a5dff49464b68102.setIcon%28icon_1a3b9a13f7184f8cb3cfd8c1a02808b6%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_242c04cbe3d547f4a6a2a7d06255935e%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_9db352b30e84402990bd8401f2407517%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_9db352b30e84402990bd8401f2407517%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EConcordia%20Station%2C%20Dome%20C%20%2819%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_242c04cbe3d547f4a6a2a7d06255935e.setContent%28html_9db352b30e84402990bd8401f2407517%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_de2b6f82a47d4a64a5dff49464b68102.bindPopup%28popup_242c04cbe3d547f4a6a2a7d06255935e%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_f7de654bab644320919a468f8d2b2d8b%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B20.7%2C%20116.73%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_d70ebe605a5444a19c93785462469955%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_f7de654bab644320919a468f8d2b2d8b.setIcon%28icon_d70ebe605a5444a19c93785462469955%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_2f5118b5c5754325b3f4c6e0400c28dd%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_f6e194faf7544d9f8ac008352966baec%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_f6e194faf7544d9f8ac008352966baec%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EDongsha%20Atoll%20%2820%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_2f5118b5c5754325b3f4c6e0400c28dd.setContent%28html_f6e194faf7544d9f8ac008352966baec%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_f7de654bab644320919a468f8d2b2d8b.bindPopup%28popup_2f5118b5c5754325b3f4c6e0400c28dd%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_032731ec0d984b108e518f15423d53af%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B36.626%2C%20-116.018%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_94d1c7f61eb04b7290d47fceac1d2f82%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_032731ec0d984b108e518f15423d53af.setIcon%28icon_94d1c7f61eb04b7290d47fceac1d2f82%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_2ea169bf00f648a69ee14e67d5ecfbc1%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_2860826ee36b4e9c84cca84ab57e1b7f%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_2860826ee36b4e9c84cca84ab57e1b7f%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EDesert%20Rock%20%2821%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_2ea169bf00f648a69ee14e67d5ecfbc1.setContent%28html_2860826ee36b4e9c84cca84ab57e1b7f%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_032731ec0d984b108e518f15423d53af.bindPopup%28popup_2ea169bf00f648a69ee14e67d5ecfbc1%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_7cdd9de1d6ec4ab39082d043627519eb%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-12.424%2C%20130.8925%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_834c20cf97374bfe85fe94f857cefac1%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_7cdd9de1d6ec4ab39082d043627519eb.setIcon%28icon_834c20cf97374bfe85fe94f857cefac1%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_65b3dc6a54d1404b8ce361974e13b3e1%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_c5ee285166da489bb2bb0c8de700cd88%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_c5ee285166da489bb2bb0c8de700cd88%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EDarwin%20Met%20Office%20%2822%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_65b3dc6a54d1404b8ce361974e13b3e1.setContent%28html_c5ee285166da489bb2bb0c8de700cd88%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_7cdd9de1d6ec4ab39082d043627519eb.bindPopup%28popup_65b3dc6a54d1404b8ce361974e13b3e1%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_ed7ba7e188f94433a88f38f1392b5c51%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B36.605%2C%20-97.485%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_489d70c0fa424e00b3641affdbe4e0d8%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_ed7ba7e188f94433a88f38f1392b5c51.setIcon%28icon_489d70c0fa424e00b3641affdbe4e0d8%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_76ef128c6a00455b97a17f9a678f6f07%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_6003f2ff180541f9bd3babf6548becbd%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_6003f2ff180541f9bd3babf6548becbd%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ESouthern%20Great%20Plains%20%2823%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_76ef128c6a00455b97a17f9a678f6f07.setContent%28html_6003f2ff180541f9bd3babf6548becbd%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_ed7ba7e188f94433a88f38f1392b5c51.bindPopup%28popup_76ef128c6a00455b97a17f9a678f6f07%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_210e08a000584f2899ef1d052ce28034%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B39.0911%2C%20-28.0292%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_ec1bef6a6ecb4a9a8cbd8218e6b8f3e8%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_210e08a000584f2899ef1d052ce28034.setIcon%28icon_ec1bef6a6ecb4a9a8cbd8218e6b8f3e8%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_6901e424eff34523adcdea13e9ff568c%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_31c036c2d56c4234bf27f727f99ad30b%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_31c036c2d56c4234bf27f727f99ad30b%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EEastern%20North%20Atlantic%20%2824%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_6901e424eff34523adcdea13e9ff568c.setContent%28html_31c036c2d56c4234bf27f727f99ad30b%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_210e08a000584f2899ef1d052ce28034.bindPopup%28popup_6901e424eff34523adcdea13e9ff568c%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_9e8727569b244b108c9e412d57b016d8%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B79.989%2C%20-85.9404%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_4693368ef1914210a4e81eda9d807491%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_9e8727569b244b108c9e412d57b016d8.setIcon%28icon_4693368ef1914210a4e81eda9d807491%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_19cc6d7b2a5545d085276fe662d1bb26%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_0e1e8f4ff9f54aad800c6cd97473d3bd%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_0e1e8f4ff9f54aad800c6cd97473d3bd%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EEureka%20%2825%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_19cc6d7b2a5545d085276fe662d1bb26.setContent%28html_0e1e8f4ff9f54aad800c6cd97473d3bd%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_9e8727569b244b108c9e412d57b016d8.bindPopup%28popup_19cc6d7b2a5545d085276fe662d1bb26%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_2ce5a13cf3cb482085c4f549ab618e8d%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-27.6047%2C%20-48.5227%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_cd67d1f8d4464eefb5b887bbab45350c%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_2ce5a13cf3cb482085c4f549ab618e8d.setIcon%28icon_cd67d1f8d4464eefb5b887bbab45350c%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_b617134e02774515b7256d2faf714a9b%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_19c114c86a4b44caab7c8a33c9a3adda%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_19c114c86a4b44caab7c8a33c9a3adda%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EFlorianopolis%20%2826%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_b617134e02774515b7256d2faf714a9b.setContent%28html_19c114c86a4b44caab7c8a33c9a3adda%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_2ce5a13cf3cb482085c4f549ab618e8d.bindPopup%28popup_b617134e02774515b7256d2faf714a9b%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_96d56e7087ee474f9daa8057509d434a%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B48.3167%2C%20-105.1%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_f9e12c022c004b8e9517316ce489e6ee%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_96d56e7087ee474f9daa8057509d434a.setIcon%28icon_f9e12c022c004b8e9517316ce489e6ee%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_e08712cbac3c4bb09c2456cf326752c3%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_711478915d5340d48f05fa1cc2e112ea%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_711478915d5340d48f05fa1cc2e112ea%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EFort%20Peck%20%2827%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_e08712cbac3c4bb09c2456cf326752c3.setContent%28html_711478915d5340d48f05fa1cc2e112ea%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_96d56e7087ee474f9daa8057509d434a.bindPopup%28popup_e08712cbac3c4bb09c2456cf326752c3%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_64121365a38642438ae9ac1ddc24b5a1%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B33.5822%2C%20130.3764%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_04a64832b7054e61972f3c9ac372c0cd%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_64121365a38642438ae9ac1ddc24b5a1.setIcon%28icon_04a64832b7054e61972f3c9ac372c0cd%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_a5f87f9c678a4415a37eca53ca6592c2%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_cac52613fc114b3b9ddaa894e934af47%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_cac52613fc114b3b9ddaa894e934af47%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EFukuoka%20%2828%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_a5f87f9c678a4415a37eca53ca6592c2.setContent%28html_cac52613fc114b3b9ddaa894e934af47%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_64121365a38642438ae9ac1ddc24b5a1.bindPopup%28popup_a5f87f9c678a4415a37eca53ca6592c2%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_2b03921ccf774f29b978f7f48f0efea8%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B23.1101%2C%2072.6276%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_8758cb0426314dc6ac3e8c27f6990264%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_2b03921ccf774f29b978f7f48f0efea8.setIcon%28icon_8758cb0426314dc6ac3e8c27f6990264%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_6c937277e0e845bfbb948dcd95366dab%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_47745c813adc47f3879d449ca74f0ed2%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_47745c813adc47f3879d449ca74f0ed2%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EGandhinagar%20%2829%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_6c937277e0e845bfbb948dcd95366dab.setContent%28html_47745c813adc47f3879d449ca74f0ed2%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_2b03921ccf774f29b978f7f48f0efea8.bindPopup%28popup_6c937277e0e845bfbb948dcd95366dab%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_57f7602328c342bdbd92bb2c775dcb09%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B34.2547%2C%20-89.8729%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_ea8498df674b4ad2b5ebcb3f774fcb63%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_57f7602328c342bdbd92bb2c775dcb09.setIcon%28icon_ea8498df674b4ad2b5ebcb3f774fcb63%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_325950fae3c54d7683e3b2e25f33695d%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_a5ac29c51d5541c88c745375292e2b48%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_a5ac29c51d5541c88c745375292e2b48%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EGoodwin%20Creek%20%2830%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_325950fae3c54d7683e3b2e25f33695d.setContent%28html_a5ac29c51d5541c88c745375292e2b48%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_57f7602328c342bdbd92bb2c775dcb09.bindPopup%28popup_325950fae3c54d7683e3b2e25f33695d%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_a90af42b43eb4bc1a9ed40ab5de81123%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B46.721%2C%2087.411%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_ccb77f7de2c146b0a6fc554657e86aa3%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_a90af42b43eb4bc1a9ed40ab5de81123.setIcon%28icon_ccb77f7de2c146b0a6fc554657e86aa3%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_867cfe72de404b648134fc295605b277%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_85fc0a3c244b4708b4f39b1353ad5009%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_85fc0a3c244b4708b4f39b1353ad5009%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EGranite%20Island%20%2831%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_867cfe72de404b648134fc295605b277.setContent%28html_85fc0a3c244b4708b4f39b1353ad5009%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_a90af42b43eb4bc1a9ed40ab5de81123.bindPopup%28popup_867cfe72de404b648134fc295605b277%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_ff87b30a088b438989ed6b48299e3ef6%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-23.5614%2C%2015.042%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_732432ab09e24cc58a169a84d7773f48%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_ff87b30a088b438989ed6b48299e3ef6.setIcon%28icon_732432ab09e24cc58a169a84d7773f48%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_3492901124fe41e98b8c20c530edf071%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_3df7e43019dd4d4ab10eb5e34aef2b3a%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_3df7e43019dd4d4ab10eb5e34aef2b3a%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EGobabeb%20%2832%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_3492901124fe41e98b8c20c530edf071.setContent%28html_3df7e43019dd4d4ab10eb5e34aef2b3a%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_ff87b30a088b438989ed6b48299e3ef6.bindPopup%28popup_3492901124fe41e98b8c20c530edf071%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_955fc3cf6a8945eeaf171cbf1c13603f%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B28.4249%2C%2077.156%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_b6fb8cf4496840c9bdc14b541c3da2cb%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_955fc3cf6a8945eeaf171cbf1c13603f.setIcon%28icon_b6fb8cf4496840c9bdc14b541c3da2cb%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_796d5785bbc14886a8776cb2bcb61e3e%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_acb70ca54cec4c6888042a6061165556%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_acb70ca54cec4c6888042a6061165556%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EGurgaon%20%2833%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_796d5785bbc14886a8776cb2bcb61e3e.setContent%28html_acb70ca54cec4c6888042a6061165556%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_955fc3cf6a8945eeaf171cbf1c13603f.bindPopup%28popup_796d5785bbc14886a8776cb2bcb61e3e%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_9607fbaf7abb41de80daa70c227dc01c%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-70.65%2C%20-8.25%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_0c3187a4bac64faa80bdffba4a5514d9%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_9607fbaf7abb41de80daa70c227dc01c.setIcon%28icon_0c3187a4bac64faa80bdffba4a5514d9%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_42a59785897b4e37959f23db49552750%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_f301800baf08480eb22071d58a592cfe%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_f301800baf08480eb22071d58a592cfe%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EGeorg%20von%20Neumayer%20%2834%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_42a59785897b4e37959f23db49552750.setContent%28html_f301800baf08480eb22071d58a592cfe%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_9607fbaf7abb41de80daa70c227dc01c.bindPopup%28popup_42a59785897b4e37959f23db49552750%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_dfdff5e07fb342f4a5d54a8ea3d695ec%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B22.5535%2C%2088.3064%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_4298892e02594a7a8f4bc89efcadc191%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_dfdff5e07fb342f4a5d54a8ea3d695ec.setIcon%28icon_4298892e02594a7a8f4bc89efcadc191%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_ff9d877bdb4f49debc0b1ec7085e028c%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_9e300c8faf794d728bbbf381b2feb38e%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_9e300c8faf794d728bbbf381b2feb38e%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EHowrah%20%2835%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_ff9d877bdb4f49debc0b1ec7085e028c.setContent%28html_9e300c8faf794d728bbbf381b2feb38e%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_dfdff5e07fb342f4a5d54a8ea3d695ec.bindPopup%28popup_ff9d877bdb4f49debc0b1ec7085e028c%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_d8954ae828a847549c983831958161a6%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B8.5333%2C%204.5667%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_5a57b147b4034f6b85fdb5a7f57bd2a9%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_d8954ae828a847549c983831958161a6.setIcon%28icon_5a57b147b4034f6b85fdb5a7f57bd2a9%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_ad1a5d8000954de9bd1a151a07882fb2%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_52959983483e4f02966016809060b80a%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_52959983483e4f02966016809060b80a%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EIlorin%20%2836%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_ad1a5d8000954de9bd1a151a07882fb2.setContent%28html_52959983483e4f02966016809060b80a%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_d8954ae828a847549c983831958161a6.bindPopup%28popup_ad1a5d8000954de9bd1a151a07882fb2%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_7a2310eccbe946758fac2dfa36e0b6a6%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B24.3367%2C%20124.1644%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_0cdf2c9f7a514f38a2aa0ee0c5cbf746%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_7a2310eccbe946758fac2dfa36e0b6a6.setIcon%28icon_0cdf2c9f7a514f38a2aa0ee0c5cbf746%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_53c4ccba44524c43855bad72272b78b0%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_34965c7e42fe48be9b123d5717853bdd%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_34965c7e42fe48be9b123d5717853bdd%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EIshigakijima%20%2837%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_53c4ccba44524c43855bad72272b78b0.setContent%28html_34965c7e42fe48be9b123d5717853bdd%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_7a2310eccbe946758fac2dfa36e0b6a6.bindPopup%28popup_53c4ccba44524c43855bad72272b78b0%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_234367c8df8846209b225d2ec3c3230b%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B28.3093%2C%20-16.4993%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_dcdd1c4c91894f9e8b20078c87e5fec5%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_234367c8df8846209b225d2ec3c3230b.setIcon%28icon_dcdd1c4c91894f9e8b20078c87e5fec5%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_a64f548d87f74882918e8eb9331b2af3%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_6386423ad53a4ad184b82db21b1f6b76%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_6386423ad53a4ad184b82db21b1f6b76%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EIza%C3%B1a%20%2838%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_a64f548d87f74882918e8eb9331b2af3.setContent%28html_6386423ad53a4ad184b82db21b1f6b76%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_234367c8df8846209b225d2ec3c3230b.bindPopup%28popup_a64f548d87f74882918e8eb9331b2af3%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_289052261664409481e357acaff1574d%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B8.72%2C%20167.731%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_a2c720dbad7b41c190867dd8c64bbcc6%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_289052261664409481e357acaff1574d.setIcon%28icon_a2c720dbad7b41c190867dd8c64bbcc6%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_55d5b76a0ffc4bdb90e3f8a66c975b86%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_444e9cf8ecff4023bc745ff1e7498652%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_444e9cf8ecff4023bc745ff1e7498652%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EKwajalein%20%2839%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_55d5b76a0ffc4bdb90e3f8a66c975b86.setContent%28html_444e9cf8ecff4023bc745ff1e7498652%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_289052261664409481e357acaff1574d.bindPopup%28popup_55d5b76a0ffc4bdb90e3f8a66c975b86%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_7c4fb8ebef4f4356abf1707e0127a682%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-45.045%2C%20169.689%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_c616fe806ad8447e9b976f6e33618950%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_7c4fb8ebef4f4356abf1707e0127a682.setIcon%28icon_c616fe806ad8447e9b976f6e33618950%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_58d25d02b34546f69bb957ba70c578ee%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_9da36b954d2b46619b5a826753ee50e3%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_9da36b954d2b46619b5a826753ee50e3%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ELauder%20%2840%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_58d25d02b34546f69bb957ba70c578ee.setContent%28html_9da36b954d2b46619b5a826753ee50e3%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_7c4fb8ebef4f4356abf1707e0127a682.bindPopup%28popup_58d25d02b34546f69bb957ba70c578ee%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_515437c77b544c97909259d46be6c496%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B60.1389%2C%20-1.1847%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_eec549424e1949d78aeba3f1f7239cc6%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_515437c77b544c97909259d46be6c496.setIcon%28icon_eec549424e1949d78aeba3f1f7239cc6%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_b5caca99f56a4ca2837c6322022eaf11%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_ab86b603f227481bbbebbc356de863f3%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_ab86b603f227481bbbebbc356de863f3%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ELerwick%20%2841%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_b5caca99f56a4ca2837c6322022eaf11.setContent%28html_ab86b603f227481bbbebbc356de863f3%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_515437c77b544c97909259d46be6c496.bindPopup%28popup_b5caca99f56a4ca2837c6322022eaf11%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_b4ed0e61b4d4433680ba6dda3ae9b8d8%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B52.21%2C%2014.122%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_3fa3fd75b62c4d028d66dfcee845d40e%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_b4ed0e61b4d4433680ba6dda3ae9b8d8.setIcon%28icon_3fa3fd75b62c4d028d66dfcee845d40e%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_f4f1fdb6d4ff4a0caaa73c8a10f7a6db%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_1edd420f93b3432fbf6b50441ff9d001%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_1edd420f93b3432fbf6b50441ff9d001%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ELindenberg%20%2842%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_f4f1fdb6d4ff4a0caaa73c8a10f7a6db.setContent%28html_1edd420f93b3432fbf6b50441ff9d001%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_b4ed0e61b4d4433680ba6dda3ae9b8d8.bindPopup%28popup_f4f1fdb6d4ff4a0caaa73c8a10f7a6db%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_7f55c77d42c6434a93a351fd1f6c5066%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B23.4686%2C%20120.8736%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_375af29f8db4432682102682df740df9%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_7f55c77d42c6434a93a351fd1f6c5066.setIcon%28icon_375af29f8db4432682102682df740df9%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_6f4fa006b68542238dc6cd72d51c83d5%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_ec1f09521b154fe78aa8dab479ec9f16%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_ec1f09521b154fe78aa8dab479ec9f16%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ELulin%20%2843%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_6f4fa006b68542238dc6cd72d51c83d5.setContent%28html_ec1f09521b154fe78aa8dab479ec9f16%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_7f55c77d42c6434a93a351fd1f6c5066.bindPopup%28popup_6f4fa006b68542238dc6cd72d51c83d5%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_9ed99c9a4133419bbbdb59b49639d8f0%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B37.1038%2C%20-76.3872%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_179ec62d094c4e789fcf0dfb7bbce259%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_9ed99c9a4133419bbbdb59b49639d8f0.setIcon%28icon_179ec62d094c4e789fcf0dfb7bbce259%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_3ce5003fdc184e828eff171b14987f53%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_7e3ff171d3624497ab963d558c5800a7%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_7e3ff171d3624497ab963d558c5800a7%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ELangley%20Research%20Center%20%2844%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_3ce5003fdc184e828eff171b14987f53.setContent%28html_7e3ff171d3624497ab963d558c5800a7%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_9ed99c9a4133419bbbdb59b49639d8f0.bindPopup%28popup_3ce5003fdc184e828eff171b14987f53%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_e36b80e03c33448d9a8a5c917d32bde3%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B22.037%2C%20121.5583%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_390e846b3a814d948a7cd481ae8ae8c1%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_e36b80e03c33448d9a8a5c917d32bde3.setIcon%28icon_390e846b3a814d948a7cd481ae8ae8c1%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_8e4a7e9bf7c54a15839bc2db3b03023b%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_c7967a47b3f84b3faefd772c7a248f93%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_c7967a47b3f84b3faefd772c7a248f93%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ELanyu%20Station%20%2845%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_8e4a7e9bf7c54a15839bc2db3b03023b.setContent%28html_c7967a47b3f84b3faefd772c7a248f93%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_e36b80e03c33448d9a8a5c917d32bde3.bindPopup%28popup_8e4a7e9bf7c54a15839bc2db3b03023b%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_22c0f974b82b48d1bbf24742904922e0%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-2.058%2C%20147.425%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_e770b7a513ae434ba76f967bbc9b4a54%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_22c0f974b82b48d1bbf24742904922e0.setIcon%28icon_e770b7a513ae434ba76f967bbc9b4a54%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_86bd3eb195db4d1097f30806de50045a%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_4a503c37b0b944678496728c9a004943%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_4a503c37b0b944678496728c9a004943%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EMomote%20%2846%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_86bd3eb195db4d1097f30806de50045a.setContent%28html_4a503c37b0b944678496728c9a004943%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_22c0f974b82b48d1bbf24742904922e0.bindPopup%28popup_86bd3eb195db4d1097f30806de50045a%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_0a9702224f29460a8f55c30dd16653f2%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B24.2883%2C%20153.9833%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_85db15b32ca04f91be9fe85b9d090a44%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_0a9702224f29460a8f55c30dd16653f2.setIcon%28icon_85db15b32ca04f91be9fe85b9d090a44%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_bb784f270eb84c41a538871e72839f10%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_64c324e489fc4174bff6db944389cab1%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_64c324e489fc4174bff6db944389cab1%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EMinamitorishima%20%2847%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_bb784f270eb84c41a538871e72839f10.setContent%28html_64c324e489fc4174bff6db944389cab1%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_0a9702224f29460a8f55c30dd16653f2.bindPopup%28popup_bb784f270eb84c41a538871e72839f10%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_c2a12af2e4304d39b34d5897c8050c40%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-0.521%2C%20166.9167%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_8c3005b3a20443c8ab7ca92f7604587f%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_c2a12af2e4304d39b34d5897c8050c40.setIcon%28icon_8c3005b3a20443c8ab7ca92f7604587f%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_c6322077c4fb44cab0fd4b5e9cd33037%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_e4a79d66b26b447db06516c7ce513034%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_e4a79d66b26b447db06516c7ce513034%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ENauru%20Island%20%2848%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_c6322077c4fb44cab0fd4b5e9cd33037.setContent%28html_e4a79d66b26b447db06516c7ce513034%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_c2a12af2e4304d39b34d5897c8050c40.bindPopup%28popup_c6322077c4fb44cab0fd4b5e9cd33037%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_d6d4bf3a3c544c259b5f81d39003c503%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-32.8842%2C%20151.7289%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_62f680b1c4074f458865c40950339af8%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_d6d4bf3a3c544c259b5f81d39003c503.setIcon%28icon_62f680b1c4074f458865c40950339af8%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_94d6b9036d9244ee93dc42913cdd4b14%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_ef7c52b63fd04958ade4bf5b6f6f2408%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_ef7c52b63fd04958ade4bf5b6f6f2408%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ENewcastle%20%2849%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_94d6b9036d9244ee93dc42913cdd4b14.setContent%28html_ef7c52b63fd04958ade4bf5b6f6f2408%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_d6d4bf3a3c544c259b5f81d39003c503.bindPopup%28popup_94d6b9036d9244ee93dc42913cdd4b14%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_bf956c0abfdb4547a101f1993a304e1d%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B78.925%2C%2011.93%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_47106f6aadfb4ac39add6f6fb4cc2aa3%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_bf956c0abfdb4547a101f1993a304e1d.setIcon%28icon_47106f6aadfb4ac39add6f6fb4cc2aa3%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_b11b5476ea3947d0b10756ca56a84311%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_25a3cd3a21e04b57a40e544788bfabac%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_25a3cd3a21e04b57a40e544788bfabac%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ENy-%C3%85lesund%20%2850%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_b11b5476ea3947d0b10756ca56a84311.setContent%28html_25a3cd3a21e04b57a40e544788bfabac%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_bf956c0abfdb4547a101f1993a304e1d.bindPopup%28popup_b11b5476ea3947d0b10756ca56a84311%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_e2701a3551e247bfbd09b41cc2ba62df%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-12.05%2C%20-75.32%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_40d6c89b0bb8419a93049649e4ef8018%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_e2701a3551e247bfbd09b41cc2ba62df.setIcon%28icon_40d6c89b0bb8419a93049649e4ef8018%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_b65146af31aa4265b63e07a06a0f73e6%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_691e432ba9d248a7805a66abbfb65d2e%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_691e432ba9d248a7805a66abbfb65d2e%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EObservatory%20of%20Huancayo%20%2851%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_b65146af31aa4265b63e07a06a0f73e6.setContent%28html_691e432ba9d248a7805a66abbfb65d2e%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_e2701a3551e247bfbd09b41cc2ba62df.bindPopup%28popup_b65146af31aa4265b63e07a06a0f73e6%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_10a2f5d889f74359ab8c1be8c5a78298%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B48.713%2C%202.208%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_16e805d2017b4aaa8858629594e65f64%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_10a2f5d889f74359ab8c1be8c5a78298.setIcon%28icon_16e805d2017b4aaa8858629594e65f64%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_c67ee3e85484495cab2402308e9fdbac%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_47c63fbf3ece443882f45262f3cdfde6%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_47c63fbf3ece443882f45262f3cdfde6%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EPalaiseau%2C%20SIRTA%20Observatory%20%2852%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_c67ee3e85484495cab2402308e9fdbac.setContent%28html_47c63fbf3ece443882f45262f3cdfde6%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_10a2f5d889f74359ab8c1be8c5a78298.bindPopup%28popup_c67ee3e85484495cab2402308e9fdbac%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_a9b31429a4264af181a61800dfbdabf6%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B5.806%2C%20-55.2146%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_89fc676c88b3433bbc729fc802905b44%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_a9b31429a4264af181a61800dfbdabf6.setIcon%28icon_89fc676c88b3433bbc729fc802905b44%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_e5959b42023d4266b49eb74fad98af39%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_0e9892de22274ef4b2e4583efa897cb9%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_0e9892de22274ef4b2e4583efa897cb9%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EParamaribo%20%2853%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_e5959b42023d4266b49eb74fad98af39.setContent%28html_0e9892de22274ef4b2e4583efa897cb9%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_a9b31429a4264af181a61800dfbdabf6.bindPopup%28popup_e5959b42023d4266b49eb74fad98af39%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_c7ce3fd1c6ea40a58a3583392786b0b9%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B46.815%2C%206.944%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_ad6c18b9aacc4c39b19eace919fb782a%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_c7ce3fd1c6ea40a58a3583392786b0b9.setIcon%28icon_ad6c18b9aacc4c39b19eace919fb782a%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_9099b59c1abe40c1aa6386852a3daa1b%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_c433483db94e43a7a6922e8ddd37e188%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_c433483db94e43a7a6922e8ddd37e188%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EPayerne%20%2854%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_9099b59c1abe40c1aa6386852a3daa1b.setContent%28html_c433483db94e43a7a6922e8ddd37e188%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_c7ce3fd1c6ea40a58a3583392786b0b9.bindPopup%28popup_9099b59c1abe40c1aa6386852a3daa1b%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_308c4fa70b314323b16909e176a648ec%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B40.72%2C%20-77.9333%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_3c39736ec5cf40e8bcc853b81b24d85d%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_308c4fa70b314323b16909e176a648ec.setIcon%28icon_3c39736ec5cf40e8bcc853b81b24d85d%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_992c7a3a5bc34c308820e4fc66056f7f%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_1e1de4dc0049416f9b8912f7e4e32cd6%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_1e1de4dc0049416f9b8912f7e4e32cd6%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ERock%20Springs%20%2855%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_992c7a3a5bc34c308820e4fc66056f7f.setContent%28html_1e1de4dc0049416f9b8912f7e4e32cd6%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_308c4fa70b314323b16909e176a648ec.bindPopup%28popup_992c7a3a5bc34c308820e4fc66056f7f%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_6b3855234ba34249bdc1d4d945db341e%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-9.068%2C%20-40.319%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_f4b01a2ff2094ae8aaf70c6e5034e5a7%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_6b3855234ba34249bdc1d4d945db341e.setIcon%28icon_f4b01a2ff2094ae8aaf70c6e5034e5a7%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_a82e6f36e127455d896a2580a76559e4%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_23d70de7a78b4d0388a76a69f56e75bb%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_23d70de7a78b4d0388a76a69f56e75bb%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EPetrolina%20%2856%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_a82e6f36e127455d896a2580a76559e4.setContent%28html_23d70de7a78b4d0388a76a69f56e75bb%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_6b3855234ba34249bdc1d4d945db341e.bindPopup%28popup_a82e6f36e127455d896a2580a76559e4%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_3ce407deb10341d299ba3f789aad7cee%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B50.205%2C%20-104.713%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_89bf732e64a74cd98ea5005d09235494%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_3ce407deb10341d299ba3f789aad7cee.setIcon%28icon_89bf732e64a74cd98ea5005d09235494%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_c07ea635d1ca4066bd5575efbcfa21cb%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_5995fc5d125042bcbf3f1e638eb392a3%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_5995fc5d125042bcbf3f1e638eb392a3%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ERegina%20%2857%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_c07ea635d1ca4066bd5575efbcfa21cb.setContent%28html_5995fc5d125042bcbf3f1e638eb392a3%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_3ce407deb10341d299ba3f789aad7cee.bindPopup%28popup_c07ea635d1ca4066bd5575efbcfa21cb%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_7d1151dda76e40a3ac973aa398e06de4%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-11.582%2C%20-61.773%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_98c67a152de847adb2208aab34e3f20c%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_7d1151dda76e40a3ac973aa398e06de4.setIcon%28icon_98c67a152de847adb2208aab34e3f20c%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_3e1315aad057462398e49fe5f94fc18e%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_9b4515a457474b2790cda4d66aeed7ef%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_9b4515a457474b2790cda4d66aeed7ef%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ERolim%20de%20Moura%20%2858%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_3e1315aad057462398e49fe5f94fc18e.setContent%28html_9b4515a457474b2790cda4d66aeed7ef%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_7d1151dda76e40a3ac973aa398e06de4.bindPopup%28popup_3e1315aad057462398e49fe5f94fc18e%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_bfa421c8934c407e802b25588bf1c7de%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-20.9014%2C%2055.4836%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_f005e614e23d4ecdbba5a8c0b718b7ca%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_bfa421c8934c407e802b25588bf1c7de.setIcon%28icon_f005e614e23d4ecdbba5a8c0b718b7ca%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_1de19b5348a84a1fb611095ce6c1bc21%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_b301712b82314aae9aba7b30222eb1a3%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_b301712b82314aae9aba7b30222eb1a3%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EReunion%20Island%2C%20University%20%2859%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_1de19b5348a84a1fb611095ce6c1bc21.setContent%28html_b301712b82314aae9aba7b30222eb1a3%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_bfa421c8934c407e802b25588bf1c7de.bindPopup%28popup_1de19b5348a84a1fb611095ce6c1bc21%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_f30df820a2ae464fa9839f8706798f1e%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B43.06%2C%20141.3286%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_85fd9380cf8e4fac8529318b80e5cab1%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_f30df820a2ae464fa9839f8706798f1e.setIcon%28icon_85fd9380cf8e4fac8529318b80e5cab1%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_b70caec4fee04322a0b2185343a8ba13%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_93a619dde94743b28366835b521c766d%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_93a619dde94743b28366835b521c766d%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ESapporo%20%2860%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_b70caec4fee04322a0b2185343a8ba13.setContent%28html_93a619dde94743b28366835b521c766d%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_f30df820a2ae464fa9839f8706798f1e.bindPopup%28popup_b70caec4fee04322a0b2185343a8ba13%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_438c2a6feca74ff4ab15e56a1b84da82%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B30.8597%2C%2034.7794%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_a498cf234ff74a32948e67f0859583b0%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_438c2a6feca74ff4ab15e56a1b84da82.setIcon%28icon_a498cf234ff74a32948e67f0859583b0%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_9ba159572d2147a2b22e0df0d0732b1d%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_fa6a484b7f6343ff959dbbdc916bb2cf%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_fa6a484b7f6343ff959dbbdc916bb2cf%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ESede%20Boqer%20%2861%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_9ba159572d2147a2b22e0df0d0732b1d.setContent%28html_fa6a484b7f6343ff959dbbdc916bb2cf%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_438c2a6feca74ff4ab15e56a1b84da82.bindPopup%28popup_9ba159572d2147a2b22e0df0d0732b1d%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_6343973ac33646f2bcb9c66d3796e6c6%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B15.784%2C%20-91.9902%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_2812a05d228341328f666a06a567f5a9%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_6343973ac33646f2bcb9c66d3796e6c6.setIcon%28icon_2812a05d228341328f666a06a567f5a9%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_65274f1f1a544a6a827ac996434789d1%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_8797f05e328a4383b2cd40d647c04471%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_8797f05e328a4383b2cd40d647c04471%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ESelegua%2C%20Mexico%20Solarimetric%20Station%20%2862%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_65274f1f1a544a6a827ac996434789d1.setContent%28html_8797f05e328a4383b2cd40d647c04471%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_6343973ac33646f2bcb9c66d3796e6c6.bindPopup%28popup_65274f1f1a544a6a827ac996434789d1%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_eac23dac13be402db67b93d0256d4a41%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-29.4428%2C%20-53.8231%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_29750f97b38a494ca47a5d937b7874ac%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_eac23dac13be402db67b93d0256d4a41.setIcon%28icon_29750f97b38a494ca47a5d937b7874ac%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_88d95d0a3e3e47be829ff2c9a20fa88a%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_f2bc41e6d54e4671af620faee03deb96%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_f2bc41e6d54e4671af620faee03deb96%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ES%C3%A3o%20Martinho%20da%20Serra%20%2863%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_88d95d0a3e3e47be829ff2c9a20fa88a.setContent%28html_f2bc41e6d54e4671af620faee03deb96%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_eac23dac13be402db67b93d0256d4a41.bindPopup%28popup_88d95d0a3e3e47be829ff2c9a20fa88a%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_7c7572fec3c04194aa1403c9374ec4d1%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B47.054%2C%2012.9577%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_459d7a080b2e4532a8f156d93f7f3da3%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_7c7572fec3c04194aa1403c9374ec4d1.setIcon%28icon_459d7a080b2e4532a8f156d93f7f3da3%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_662353b233f642558c32c55f401e58e2%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_d9f01db3e6ee4e538c4f2d3bd1d7126f%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_d9f01db3e6ee4e538c4f2d3bd1d7126f%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ESonnblick%20%2864%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_662353b233f642558c32c55f401e58e2.setContent%28html_d9f01db3e6ee4e538c4f2d3bd1d7126f%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_7c7572fec3c04194aa1403c9374ec4d1.bindPopup%28popup_662353b233f642558c32c55f401e58e2%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_2129ed91799645a4a29370f9b11298a4%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B24.91%2C%2046.41%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_0c37a869589b44d5958594517b3e603c%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_2129ed91799645a4a29370f9b11298a4.setIcon%28icon_0c37a869589b44d5958594517b3e603c%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_36ce936e7c874b86bd47b7806161f829%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_9ac318cf593a4ae18c64d08673929ef0%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_9ac318cf593a4ae18c64d08673929ef0%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ESolar%20Village%20%2865%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_36ce936e7c874b86bd47b7806161f829.setContent%28html_9ac318cf593a4ae18c64d08673929ef0%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_2129ed91799645a4a29370f9b11298a4.bindPopup%28popup_36ce936e7c874b86bd47b7806161f829%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_77142ca2c4f54c73ba6cf16c91a8aa67%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-89.983%2C%20-24.799%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_1af91f10f66a4be88745d1fa21c732be%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_77142ca2c4f54c73ba6cf16c91a8aa67.setIcon%28icon_1af91f10f66a4be88745d1fa21c732be%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_9c66914811d74bbcab008ac0770ad359%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_532f88779bf844bc91fbc462c28ca1e5%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_532f88779bf844bc91fbc462c28ca1e5%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ESouth%20Pole%20%2866%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_9c66914811d74bbcab008ac0770ad359.setContent%28html_532f88779bf844bc91fbc462c28ca1e5%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_77142ca2c4f54c73ba6cf16c91a8aa67.bindPopup%28popup_9c66914811d74bbcab008ac0770ad359%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_5fc18fdcd789446ba8e5ac8e140c68bf%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B43.73%2C%20-96.62%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_aa673a3e014646d1996e280a4cc00f9e%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_5fc18fdcd789446ba8e5ac8e140c68bf.setIcon%28icon_aa673a3e014646d1996e280a4cc00f9e%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_3031b813498444ac9c5be4f60d874387%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_a08d5514be5e4f91a430abedabcc2dbd%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_a08d5514be5e4f91a430abedabcc2dbd%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ESioux%20Falls%20%2867%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_3031b813498444ac9c5be4f60d874387.setContent%28html_a08d5514be5e4f91a430abedabcc2dbd%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_5fc18fdcd789446ba8e5ac8e140c68bf.bindPopup%28popup_3031b813498444ac9c5be4f60d874387%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_06272358cef444dfa7721b036dc45102%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B-69.005%2C%2039.589%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_e580b91b22244d40891a603865bef6ca%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_06272358cef444dfa7721b036dc45102.setIcon%28icon_e580b91b22244d40891a603865bef6ca%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_2edbdb52b6f0411eac302119b83e48ba%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_9551c35099c447c99ed65e827d127b2f%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_9551c35099c447c99ed65e827d127b2f%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ESyowa%20%2868%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_2edbdb52b6f0411eac302119b83e48ba.setContent%28html_9551c35099c447c99ed65e827d127b2f%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_06272358cef444dfa7721b036dc45102.bindPopup%28popup_2edbdb52b6f0411eac302119b83e48ba%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_83b8398f3e52462681fb88aee27cb55b%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B22.7903%2C%205.5292%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_5a4d124245b94bce8882751449f46761%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_83b8398f3e52462681fb88aee27cb55b.setIcon%28icon_5a4d124245b94bce8882751449f46761%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_fd383e7de02a44b696cb343caa99ffda%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_15aa6da08f5543c8a7383963a9a024f7%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_15aa6da08f5543c8a7383963a9a024f7%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ETamanrasset%20%2869%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_fd383e7de02a44b696cb343caa99ffda.setContent%28html_15aa6da08f5543c8a7383963a9a024f7%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_83b8398f3e52462681fb88aee27cb55b.bindPopup%28popup_fd383e7de02a44b696cb343caa99ffda%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_cdb447df04dd40938fa43ebe63135256%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B36.0581%2C%20140.1258%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_c629d97af7784fba81ca00a58b191192%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_cdb447df04dd40938fa43ebe63135256.setIcon%28icon_c629d97af7784fba81ca00a58b191192%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_a9cd45dc91954f97adb179e2ff46da69%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_e86daa99317d48bf97fecab2a3d46bec%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_e86daa99317d48bf97fecab2a3d46bec%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ETateno%20%2870%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_a9cd45dc91954f97adb179e2ff46da69.setContent%28html_e86daa99317d48bf97fecab2a3d46bec%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_cdb447df04dd40938fa43ebe63135256.bindPopup%28popup_a9cd45dc91954f97adb179e2ff46da69%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_1f6d198b84254b95954e3255880e61dc%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B71.5862%2C%20128.9188%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_eb5ccf6f7da941c99824280cffbf19ae%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_1f6d198b84254b95954e3255880e61dc.setIcon%28icon_eb5ccf6f7da941c99824280cffbf19ae%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_568ffd0c797c4b388ff1f57ad92c4753%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_0fb8e9c867774c3883de3e6eb4fecfcf%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_0fb8e9c867774c3883de3e6eb4fecfcf%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ETiksi%20%2871%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_568ffd0c797c4b388ff1f57ad92c4753.setContent%28html_0fb8e9c867774c3883de3e6eb4fecfcf%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_1f6d198b84254b95954e3255880e61dc.bindPopup%28popup_568ffd0c797c4b388ff1f57ad92c4753%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_7a2cbe4a9e944e3cbbdcc72e4c1d0545%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B13.0923%2C%2079.9738%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_2b5c0710c8ff455f97e0d4484a01c0c8%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_7a2cbe4a9e944e3cbbdcc72e4c1d0545.setIcon%28icon_2b5c0710c8ff455f97e0d4484a01c0c8%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_ed47c6286a594da1b0ced4d4f9be138e%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_c2c649029363431aa88768b0b3102d69%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_c2c649029363431aa88768b0b3102d69%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3ETiruvallur%20%2872%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_ed47c6286a594da1b0ced4d4f9be138e.setContent%28html_c2c649029363431aa88768b0b3102d69%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_7a2cbe4a9e944e3cbbdcc72e4c1d0545.bindPopup%28popup_ed47c6286a594da1b0ced4d4f9be138e%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_7c0c3e446c3a4ab8875842dea522e701%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B58.254%2C%2026.462%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_952019c1c1dc49c78039a00644d6bfc7%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_7c0c3e446c3a4ab8875842dea522e701.setIcon%28icon_952019c1c1dc49c78039a00644d6bfc7%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_4d3f5ae34c634e8d9f2a741561fdc81c%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_729094a4580343cfaed25be840e6013d%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_729094a4580343cfaed25be840e6013d%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EToravere%20%2873%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_4d3f5ae34c634e8d9f2a741561fdc81c.setContent%28html_729094a4580343cfaed25be840e6013d%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_7c0c3e446c3a4ab8875842dea522e701.bindPopup%28popup_4d3f5ae34c634e8d9f2a741561fdc81c%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_b2efbeb6634540fc8a49c79c1f7961ea%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B39.754%2C%20116.962%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_2c91a7a393cb4d49963be6a98ec5d3a3%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_b2efbeb6634540fc8a49c79c1f7961ea.setIcon%28icon_2c91a7a393cb4d49963be6a98ec5d3a3%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_90581c2978734613a9d379c9acde9f45%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_d7667ad07a084c858edfb8442dd76778%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_d7667ad07a084c858edfb8442dd76778%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EXianghe%20%2874%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_90581c2978734613a9d379c9acde9f45.setContent%28html_d7667ad07a084c858edfb8442dd76778%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_b2efbeb6634540fc8a49c79c1f7961ea.bindPopup%28popup_90581c2978734613a9d379c9acde9f45%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20marker_301b0c5312d6476ba03e212ee09480f8%20%3D%20L.marker%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5B23.4876%2C%20120.9595%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_f0b38d5be34d4076ad2e25610e6c7401%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20icon_912201af7eb24f33b5232139383d331e%20%3D%20L.AwesomeMarkers.icon%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22extraClasses%22%3A%20%22fa-rotate-0%22%2C%20%22icon%22%3A%20%22info-sign%22%2C%20%22iconColor%22%3A%20%22white%22%2C%20%22markerColor%22%3A%20%22blue%22%2C%20%22prefix%22%3A%20%22glyphicon%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20marker_301b0c5312d6476ba03e212ee09480f8.setIcon%28icon_912201af7eb24f33b5232139383d331e%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20popup_a94288a54e5c4cd9bcd594589bcbb083%20%3D%20L.popup%28%7B%22maxWidth%22%3A%20%22100%25%22%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20html_05c706b73d174e1586f2eac70b21f391%20%3D%20%24%28%60%3Cdiv%20id%3D%22html_05c706b73d174e1586f2eac70b21f391%22%20style%3D%22width%3A%20100.0%25%3B%20height%3A%20100.0%25%3B%22%3EYushan%20Station%20%2875%29%3C/div%3E%60%29%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20popup_a94288a54e5c4cd9bcd594589bcbb083.setContent%28html_05c706b73d174e1586f2eac70b21f391%29%3B%0A%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20marker_301b0c5312d6476ba03e212ee09480f8.bindPopup%28popup_a94288a54e5c4cd9bcd594589bcbb083%29%0A%20%20%20%20%20%20%20%20%3B%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%3C/script%3E onload="this.contentDocument.open();this.contentDocument.write(    decodeURIComponent(this.getAttribute('data-html')));this.contentDocument.close();" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe></div></div></div></div>
+</div>
 </div>
 
 <div class="section">
