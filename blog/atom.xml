@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://predictablysunny.com/</id>
   <title>Predictably Sunny</title>
-  <updated>2021-08-03T13:43:42.264828+00:00</updated>
+  <updated>2021-08-03T14:36:01.517007+00:00</updated>
   <link href="http://predictablysunny.com/"/>
   <link href="http://predictablysunny.com/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.19">ABlog</generator>
@@ -59,10 +59,10 @@ gsoc and pvlib logo</summary>
     <author>
       <name>Adam R. Jensen</name>
     </author>
-    <content type="html">&lt;p&gt;Hardcoding credentials such as passwords is often tempting, but almost always a bad idea. This is especially true if you are hosting your code on services like GitHub, for anyone to peruse. But then what is the right thing to do?&lt;/p&gt;
+    <content type="html">&lt;p&gt;Hardcoding credentials such as passwords is often tempting but almost always a bad idea. This is especially true if you are hosting your code on services like GitHub for anyone to peruse. But then, what is the right thing to do?&lt;/p&gt;
 </content>
     <link href="http://predictablysunny.com/posts/staying_safe_on_github/" rel="alternate"/>
-    <summary>Hardcoding credentials such as passwords is often tempting, but almost always a bad idea. This is especially true if you are hosting your code on services like GitHub, for anyone to peruse. But then what is the right thing to do?</summary>
+    <summary>Hardcoding credentials such as passwords is often tempting but almost always a bad idea. This is especially true if you are hosting your code on services like GitHub for anyone to peruse. But then, what is the right thing to do?</summary>
     <category term="openscience" label="open science"/>
     <category term="gsoc" label="gsoc"/>
     <published>2021-08-02T00:00:00+00:00</published>
