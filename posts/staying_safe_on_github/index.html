@@ -5,14 +5,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta property="og:title" content="pvlib - a one stop source for solar resource data" />
+  <meta property="og:title" content="Staying safe on GitHub" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://predictablysunny.com/posts/gsoc_project_intro.html" />
-  <meta property="og:description" content="This title at least represents the aim of my Google Summer of Code (GSoC) project that I will be completing during the next 10 weeks. In short, I’ll be extending pvlib python’s current iotools func..." />
+  <meta property="og:url" content="https://predictablysunny.com/posts/staying_safe_on_github.html" />
+  <meta property="og:description" content="Hardcoding credentials such as passwords is often tempting, but almost always a bad idea. This is especially true if you are hosting your code on services like GitHub, for anyone to see. But then w..." />
   <meta property="og:image" content="https://predictablysunny.com/_static/profile.png" />
-  <meta property="og:image:alt" content="pvlib - a one stop source for solar resource data" />
+  <meta property="og:image:alt" content="Staying safe on GitHub" />
   
-    <title>pvlib - a one stop source for solar resource data &#8212; Predictably Sunny  documentation</title>
+    <title>Staying safe on GitHub &#8212; Predictably Sunny  documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -162,7 +162,7 @@
             <div class="col-12 col-md-3 bd-sidebar">  
 <h2>
    <i class="fa fa-calendar"></i>
-  10 June 2021 
+  02 August 2021 
 </h2>
 
 <ul>
@@ -180,8 +180,6 @@
     ><i class="fa-fw fa fa-tags"></i> </span
   >
    
-  <a href="../../blog/tag/pvlib/">pvlib</a>   
-  <a href="../../blog/tag/solar/">solar</a>   
   <a href="../../blog/tag/open-science/">open science</a>   
   <a href="../../blog/tag/gsoc/">gsoc</a>  
 </li>
@@ -206,7 +204,7 @@
   <i class="fa-fw fa fa-comments"></i>
   <a
     href="#disqus_thread"
-    data-disqus-identifier="/posts/gsoc_project_intro/"
+    data-disqus-identifier="/posts/staying_safe_on_github/"
   >
     </a
   >
@@ -220,12 +218,6 @@
 <ul>
    
   <li>
-    <a href="../staying_safe_on_github/"
-      >02 August - Staying safe on GitHub</a
-    >
-  </li>
-  
-  <li>
     <a href="../data_formats/"
       >19 July - Data formats</a
     >
@@ -234,6 +226,12 @@
   <li>
     <a href="../intro_to_bsrn/"
       >05 July - An introduction to the Baseline Surface Radiation Network (BSNR)</a
+    >
+  </li>
+  
+  <li>
+    <a href="../gsoc_project_intro/"
+      >10 June - pvlib - a one stop source for solar resource data</a
     >
   </li>
   
@@ -256,18 +254,8 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-sources">
-   Data sources
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#google-summer-of-code">
-   Google Summer of Code
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#whats-next">
-   What’s next?
+  <a class="reference internal nav-link" href="#github-secrets">
+   Github Secrets
   </a>
  </li>
 </ul>
@@ -290,44 +278,31 @@
           <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
               
               <div>
-                 <div class="section" id="pvlib-a-one-stop-source-for-solar-resource-data">
-<h1>pvlib - a one stop source for solar resource data<a class="headerlink" href="#pvlib-a-one-stop-source-for-solar-resource-data" title="Permalink to this headline">¶</a></h1>
-<p>This title at least represents the aim of my <a class="reference external" href="https://summerofcode.withgoogle.com/about/">Google Summer of Code (GSoC)</a> project that I will be completing during the next 10 weeks. In short, I’ll be extending <a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/">pvlib python’s</a> current iotools functionalities to provide users with easy and standardized access to all major open-source solar resource databases.
-<img alt="gsoc and pvlib logo" src="../../_images/gsoc_at_pvlib.png" /></p>
-<p>And why would I do that, you ask? Well, first of all, I am a bit of a solar geek, but my primary motivation comes from a frustration over how unnecessarily difficult it is to obtain good solar resource data.
-Fortunately, there is a lot of high-quality data out there, free for anyone to use! However, it currently requires a great deal of time and technical expertise to obtain the data is, limiting its wider use.</p>
-<p>Given that solar irradiance is the most important input to predicting solar energy yield, using suboptimal data is kinda a big deal. Solar resource data is not only essential to the design stage but is also crucial for benchmarking solar radiation models (decomposition models, forecasting techniques, etc.) and assessing system performance.</p>
-<p>pvlib python already has a module called <code class="docutils literal notranslate"><span class="pre">iotools</span></code> for retrieving/reading solar data, but it currently only supports access to a few of the many available sources and covers a limited part of the world.</p>
-<div class="section" id="data-sources">
-<h2>Data sources<a class="headerlink" href="#data-sources" title="Permalink to this headline">¶</a></h2>
-<p>During the project I’ll be adding functions to the iotools module within pvlib python, that will allow users to retrieve data from the following datasets (in addition to the existing ones):</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://bsrn.awi.de/">Baseline Surface Radiation Network (BSRN)</a></p></li>
-<li><p><a class="reference external" href="https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5">ERA5 from ECMWF</a></p></li>
-<li><p><a class="reference external" href="https://gmao.gsfc.nasa.gov/reanalysis/MERRA-2/">MERRA2 from NASA</a></p></li>
-<li><p><a class="reference external" href="https://ec.europa.eu/jrc/en/PVGIS/tools/hourly-radiation">PVGIS hourly data</a></p></li>
-<li><p><a class="reference external" href="http://www.soda-pro.com/web-services/radiation/cams-mcclear">CAMS McClear</a></p></li>
-<li><p><a class="reference external" href="http://www.soda-pro.com/web-services/radiation/cams-radiation-service/info">CAMS Radiation</a></p></li>
-<li><p><a class="reference external" href="http://climate.onebuilding.org/">Climate One Building</a></p></li>
-</ul>
-<p>Each of the above datasets have their own strengths and differs by geographical coverage, time resolution, and accuracy. If this sounds a bit overwhelming, fret not; this will be the topic of a later blog post.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can already check out some of the existing pvlib functions for retrieving data. For example, satellite-derived solar irradiance and clear-sky data from <a class="reference external" href="https://pvlib-python.readthedocs.io/en/latest/generated/pvlib.iotools.get_cams.html">CAMS</a> and ground measurements from the <a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/generated/pvlib.iotools.read_srml_month_from_solardat.html#pvlib.iotools.read_srml_month_from_solardat">Solar Radiation Monitoring Laboratory (SRML) monitoring stations</a>.</p>
+                 <div class="section" id="staying-safe-on-github">
+<h1>Staying safe on GitHub<a class="headerlink" href="#staying-safe-on-github" title="Permalink to this headline">¶</a></h1>
+<p>Hardcoding credentials such as passwords is often tempting, but almost always a bad idea. This is especially true if you are hosting your code on services like GitHub, for anyone to see. But then what is the right thing to do?</p>
+<p>Using environment variables is one method of hiding your credentials, but still being able to use it. Environment variables have a name and an associated value, much like a dictionary.</p>
+<p>With GitHub this can be achieved using GitHub Secrets - shhh don’t tell anyone!</p>
+<p>In this blog post we’ll deal with an issue I recently encoutered of having to use a username and password in a Jupyter Notebook that is being executed by GitHub Actions.</p>
+<div class="section" id="github-secrets">
+<h2>Github Secrets<a class="headerlink" href="#github-secrets" title="Permalink to this headline">¶</a></h2>
+<p>First, the credentials need to be added as GitHub secrets. This is easily done by navigating to the secrets tab in the reposotory settings meny. New secrets can be added by clicking the “New repository secret” and entering the desired name and corresponding value.
+<img alt="github secrets example" src="../../_images/github_secrets.png" /></p>
+<p>This step is, however, not sufficient as the variables also have to be exported during the environment build.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    # Build the book
+    - name: Build the site
+      run: |
+        export BSRN_FTP_USERNAME=$(BSRN_FTP_USERNAME)
+        export BSRN_FTP_PASSWORD=$(BSRN_FTP_PASSWORD)
+        make dirhtml
+</pre></div>
 </div>
-<p>If you think that I’ve missed any important open-source datasets, please let me know in the comments section!</p>
+<p>Once the enviroment variables have been set up correctly, they can simply be called in any script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">BSRN_USERNAME</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;BSRN_FTP_USERNAME&#39;</span><span class="p">]</span>
+<span class="n">BSRN_PASSWORD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;BSRN_FTP_PASSWORD&#39;</span><span class="p">]</span>
+</pre></div>
 </div>
-<div class="section" id="google-summer-of-code">
-<h2>Google Summer of Code<a class="headerlink" href="#google-summer-of-code" title="Permalink to this headline">¶</a></h2>
-<p>You might be wondering at this point what Google has to do with all this and you’d be right to do so. Google is not directly involved with the project, but rather is the facilitator and sponsor of Google Summer of Code (GSoC) - a global program that aims at getting students writing code and taking active part in the open-source community.</p>
-<p>During the 10 week program, students are paired with a mentor from a pre-qualified open-source organization, who guides the student through a specific project. This is where <a class="reference external" href="https://github.com/kanderso-nrel">Kevin Anderson</a> comes into the picture. Kevin is one of the core pvlib developers, and each week volunteers a few hours of his time where I get to pick his brain. He is truly a phenomenal guy, and he’s really the reason why this project exists.</p>
-<p>If you’re interested, you can find my official GSoC project abstract <a class="reference external" href="https://summerofcode.withgoogle.com/projects/#6071460558274560">here</a>.</p>
-</div>
-<div class="section" id="whats-next">
-<h2>What’s next?<a class="headerlink" href="#whats-next" title="Permalink to this headline">¶</a></h2>
-<p>I just completed adding <a class="reference external" href="https://github.com/pvlib/pvlib-python/pull/1175">CAMS support to pvlib python</a>. CAMS provides satellite-derived solar radiation for Europe and Africa. But not only that, CAMS also lets you retrieve McClear clear-sky data for anywhere in the world. Hint: McClear is based on actual aerosol data and probably provides the best clear-sky data you will ever use.</p>
-<p>Now that this has been completed, I have moved on to writing tests for the functions I’ve written for retrieving hourly data from PVGIS.</p>
-<p>Stay tuned for more news on how you easily can get your hands on solar radiation data, and leave a comment below if you have any questions in getting started with retrieving CAMS data.</p>
+<p>and no one will be the wiser of your passwords!</p>
 </div>
 </div>
 
@@ -335,17 +310,14 @@ Fortunately, there is a lot of high-quality data out there, free for anyone to u
      
 <div class="section">
   <span style="float: left">
+     
+    <a href="../data_formats/">
+      <i class="fa fa-arrow-circle-left"></i> Data formats
+    </a>
     
   </span>
   <span>&nbsp;</span>
   <span style="float: right">
-     
-    <a href="../intro_to_bsrn/">
-      An introduction to the Baseline Surface Radiation Network (BSNR) <i
-        class="fa fa-arrow-circle-right"
-      ></i
-      >
-    </a>
     
   </span>
 </div>
@@ -355,9 +327,9 @@ Fortunately, there is a lot of high-quality data out there, free for anyone to u
     <div id="disqus_thread"></div>
     <script type="text/javascript">
       var disqus_shortname = "adamrjensen";
-      var disqus_identifier = "/posts/gsoc_project_intro/";
-      var disqus_title = "pvlib - a one stop source for solar resource data";
-      var disqus_url = "http://predictablysunny.com/posts/gsoc_project_intro";
+      var disqus_identifier = "/posts/staying_safe_on_github/";
+      var disqus_title = "Staying safe on GitHub";
+      var disqus_url = "http://predictablysunny.com/posts/staying_safe_on_github";
 
       (function () {
         var dsq = document.createElement("script");
