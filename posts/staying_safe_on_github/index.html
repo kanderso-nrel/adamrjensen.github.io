@@ -8,7 +8,7 @@
   <meta property="og:title" content="Staying safe on GitHub" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://predictablysunny.com/posts/staying_safe_on_github.html" />
-  <meta property="og:description" content="Hardcoding credentials such as passwords is often tempting, but almost always a bad idea. This is especially true if you are hosting your code on services like GitHub, for anyone to see. But then w..." />
+  <meta property="og:description" content="Hardcoding credentials such as passwords is often tempting, but almost always a bad idea. This is especially true if you are hosting your code on services like GitHub, for anyone to peruse. But the..." />
   <meta property="og:image" content="https://predictablysunny.com/_static/profile.png" />
   <meta property="og:image:alt" content="Staying safe on GitHub" />
   
@@ -280,15 +280,15 @@
               <div>
                  <div class="section" id="staying-safe-on-github">
 <h1>Staying safe on GitHub<a class="headerlink" href="#staying-safe-on-github" title="Permalink to this headline">¶</a></h1>
-<p>Hardcoding credentials such as passwords is often tempting, but almost always a bad idea. This is especially true if you are hosting your code on services like GitHub, for anyone to see. But then what is the right thing to do?</p>
-<p>Using environment variables is one method of hiding your credentials, but still being able to use it. Environment variables have a name and an associated value, much like a dictionary.</p>
-<p>With GitHub this can be achieved using GitHub Secrets - shhh don’t tell anyone!</p>
-<p>In this blog post we’ll deal with an issue I recently encoutered of having to use a username and password in a Jupyter Notebook that is being executed by GitHub Actions.</p>
+<p>Hardcoding credentials such as passwords is often tempting, but almost always a bad idea. This is especially true if you are hosting your code on services like GitHub, for anyone to peruse. But then what is the right thing to do?</p>
+<p>Storing your credentials as environment variables is one method of hiding your credentials, while still being able to envoke them easily. Each environment variable have a name and an associated value, much like a dictionary. With GitHub this can be achieved using GitHub Secrets - shhh don’t tell anyone!</p>
+<p>In this blog post we’ll deal with an issue I recently encoutered of having to use a username and password in a Jupyter Notebook that is being compiled by GitHub Actions.</p>
 <div class="section" id="github-secrets">
 <h2>Github Secrets<a class="headerlink" href="#github-secrets" title="Permalink to this headline">¶</a></h2>
-<p>First, the credentials need to be added as GitHub secrets. This is easily done by navigating to the secrets tab in the reposotory settings meny. New secrets can be added by clicking the “New repository secret” and entering the desired name and corresponding value.
+<p>The first step is to add the credentials to GitHub Secrets in your repository. This is easily done by navigating to the secrets tab in the repository settings meny. New secrets can be added by clicking the “New repository secret” and entering the desired name and corresponding value. In my case I wanted both the username and password to stay hidden, hence I created two secrets.</p>
+<p>Here’s what that looked like afterwards:
 <img alt="github secrets example" src="../../_images/github_secrets.png" /></p>
-<p>This step is, however, not sufficient as the variables also have to be exported during the environment build.</p>
+<p>This step is, however, not sufficient as the variables also have to be exported during the environment build:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    # Build the book
     - name: Build the site
       run: |
